@@ -1,3 +1,16 @@
+"use client";
+
+import PageSection from "./PageSection";
+
 export default function Faq() {
-  return null;
+  return (
+    <PageSection
+      id="sss"
+      tag="KNOWLEDGE_BASE"
+      title="SIKÇA SORULAN SORULAR"
+      showBar={true}
+    >
+      {" "}
+    </PageSection>
+  );
 }
