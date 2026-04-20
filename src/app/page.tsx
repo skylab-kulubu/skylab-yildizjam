@@ -6,10 +6,12 @@ import Experts from "@/components/Experts";
 import Sponsors from "@/components/Sponsors";
 import Prizes from "@/components/Prizes";
 import Footer from "@/components/Footer";
+import Background from "@/components/Background";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black font-sans text-zinc-900 dark:text-zinc-100">
+    <main className="min-h-screen bg-space text-white font-tech selection:bg-volt/30 overflow-x-hidden pb-16 relative">
+      <Background />
       <Header />
       <Hero />
       <Features />
@@ -18,6 +20,6 @@ export default function Home() {
       <Experts />
       <FAQ />
       <Footer />
-    </div>
+    </main>
   );
 }

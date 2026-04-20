@@ -1,9 +1,9 @@
 import { Card } from "./Card";
 export default function Hero() {
   return (
-    <div className="text-center">
+    <section className="relative z-10 text-center">
       <Card>test</Card>
       <p>yildizjam site</p>
-    </div>
+    </section>
   );
 }
