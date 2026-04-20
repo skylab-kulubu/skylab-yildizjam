@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const outfit = Outfit({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-display",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-tech",
+});
+
+const pixelify = Pixelify_Sans({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-pixel",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${jakarta.variable} ${pixelify.variable}`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="font-tech text-white antialiased">{children}</body>
     </html>
   );
 }
