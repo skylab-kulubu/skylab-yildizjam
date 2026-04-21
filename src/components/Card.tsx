@@ -79,32 +79,23 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       [c1, c2, c3],
     );
 
-    const cornerSvgPath = (
-      <g
-        className="transition-colors duration-500 ease-out fill-(--corner-color) group-hover:fill-(--corner-glow)"
-        style={{ filter: `drop-shadow(0 0 4px var(--corner-color))` }}
-      >
-        <rect x={3 * p} y="0" width={5 * p} height={p} />
-        <rect x={2 * p} y={p} width={p} height={p} />
-        <rect x={p} y={2 * p} width={p} height={p} />
-        <rect x="0" y={3 * p} width={p} height={5 * p} />
-      </g>
-    );
+    const cornerTransforms = [
+      "top-0 left-0",
+      "top-0 right-0 scale-x-[-1]",
+      "bottom-0 left-0 scale-y-[-1]",
+      "bottom-0 right-0 scale-x-[-1] scale-y-[-1]",
+    ];
 
     return (
       <div
         ref={ref}
         className={`group relative flex flex-col ${className}`}
-        style={
-          {
-            width: toUnit(width),
-            height: toUnit(height),
-            "--corner-color": cornerColor,
-            "--corner-glow": glowColor,
-            isolation: "isolate",
-            ...style,
-          } as React.CSSProperties
-        }
+        style={{
+          width: toUnit(width),
+          height: toUnit(height),
+          isolation: "isolate",
+          ...style,
+        }}
         {...props}
       >
         <div
@@ -128,22 +119,19 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
           <div
             className="absolute top-0 left-0 w-full h-full opacity-30 transition-opacity duration-700 group-hover:opacity-50 pointer-events-none"
             style={{
-              background:
-                "radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--corner-color) 25%, transparent) 0%, transparent 60%)",
+              background: `radial-gradient(circle at 0% 0%, color-mix(in srgb, ${cornerColor} 25%, transparent) 0%, transparent 60%)`,
             }}
           />
           <div
             className="absolute top-0 right-0 w-full h-full opacity-20 transition-opacity duration-700 group-hover:opacity-40 pointer-events-none"
             style={{
-              background:
-                "radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--corner-color) 20%, transparent) 0%, transparent 60%)",
+              background: `radial-gradient(circle at 100% 0%, color-mix(in srgb, ${cornerColor} 20%, transparent) 0%, transparent 60%)`,
             }}
           />
           <div
             className="absolute bottom-0 left-0 w-full h-full opacity-20 transition-opacity duration-700 group-hover:opacity-40 pointer-events-none"
             style={{
-              background:
-                "radial-gradient(circle at 0% 100%, color-mix(in srgb, var(--corner-glow) 20%, transparent) 0%, transparent 60%)",
+              background: `radial-gradient(circle at 0% 100%, color-mix(in srgb, ${glowColor} 20%, transparent) 0%, transparent 60%)`,
             }}
           />
 
@@ -190,47 +178,35 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
               backgroundColor: edgeColor,
             }}
           />
-
-          <svg
-            width={8 * p}
-            height={8 * p}
-            className="absolute top-0 left-0 overflow-visible"
-          >
-            {cornerSvgPath}
-          </svg>
-          <svg
-            width={8 * p}
-            height={8 * p}
-            className="absolute top-0 right-0 overflow-visible"
-            style={{ transform: "scaleX(-1)" }}
-          >
-            {cornerSvgPath}
-          </svg>
-          <svg
-            width={8 * p}
-            height={8 * p}
-            className="absolute bottom-0 left-0 overflow-visible"
-            style={{ transform: "scaleY(-1)" }}
-          >
-            {cornerSvgPath}
-          </svg>
-          <svg
-            width={8 * p}
-            height={8 * p}
-            className="absolute bottom-0 right-0 overflow-visible"
-            style={{ transform: "scale(-1, -1)" }}
-          >
-            {cornerSvgPath}
-          </svg>
-
-          <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 transition-all duration-700 ease-out opacity-40 group-hover:opacity-100 group-hover:w-[60%] w-[30%]"
-            style={{
-              background: `linear-gradient(90deg, transparent, var(--corner-glow), transparent)`,
-              filter: `drop-shadow(0 0 6px var(--corner-glow))`,
-            }}
-          />
         </div>
+
+        {cornerTransforms.map((transformClass, index) => (
+          <svg
+            key={index}
+            width={8 * p}
+            height={8 * p}
+            className={`absolute pointer-events-none z-20 overflow-visible transition-colors duration-500 ease-out ${transformClass}`}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill={cornerColor}
+              style={{ filter: `drop-shadow(0 0 4px ${cornerColor})` }}
+            >
+              <rect x={3 * p} y={0} width={5 * p} height={p} />
+              <rect x={2 * p} y={p} width={p} height={p} />
+              <rect x={p} y={2 * p} width={p} height={p} />
+              <rect x={0} y={3 * p} width={p} height={5 * p} />
+            </g>
+          </svg>
+        ))}
+
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-[30%] group-hover:w-[60%] transition-all duration-700 ease-out opacity-40 group-hover:opacity-100 z-30"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${glowColor}, transparent)`,
+            filter: `drop-shadow(0 0 6px ${glowColor})`,
+          }}
+        />
 
         <div
           className={`relative z-20 grow flex flex-col ${noPadding ? "" : "p-6 sm:p-8"} ${contentClassName}`}
@@ -245,4 +221,4 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = "Card";
 
-export { Card };
+export default Card;
