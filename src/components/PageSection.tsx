@@ -56,7 +56,7 @@ export default function PageSection({
       id={id}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
       variants={staggerContainer}
       className={`relative z-10 w-full transform-gpu ${currentSize.py} ${className}`}
       style={{ "--layout-color": baseColor } as React.CSSProperties}
