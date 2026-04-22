@@ -27,3 +27,92 @@
     font-family: var(--font-tech);
   }
 }
+
+@layer components {
+  .jam-btn {
+    box-sizing: border-box;
+    border: 1px solid #e0ffff;
+    background-color: #080a1a;
+    border-radius: 2px;
+    box-shadow:
+      0px 1px 0 #080a1a,
+      0px 2px 0 #080a1a,
+      0px 3px 0 var(--color-brand-glow),
+      0px 0px 0px transparent,
+      inset 0px 0px 0px transparent;
+    color: #e0ffff;
+    transition: all 0.15s ease-out;
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    overflow: hidden;
+  }
+
+  .jam-btn__label {
+    font-size: 22%;
+    font-family: var(--font-pixel), monospace;
+    line-height: 1;
+    display: block;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    text-rendering: optimizeSpeed;
+    text-shadow:
+      -1px -1px 0 #080a1a,
+      1px -1px 0 #080a1a,
+      -1px 1px 0 #080a1a,
+      1px 1px 0 #080a1a;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .jam-btn:hover {
+    border-color: var(--color-brand-glow);
+    background-color: color-mix(in srgb, var(--color-brand-glow) 15%, #080a1a);
+    box-shadow:
+      0px 2px 0 var(--color-brand-glow),
+      0px 0px 0px transparent,
+      0px 0px 0px transparent,
+      0px 0px 15px color-mix(in srgb, var(--color-brand-glow) 40%, transparent),
+      inset 0px 0px 8px
+        color-mix(in srgb, var(--color-brand-glow) 20%, transparent);
+    color: #ffffff;
+  }
+
+  .jam-btn:hover .jam-btn__label {
+    text-shadow:
+      -1px -1px 0 #080a1a,
+      1px -1px 0 #080a1a,
+      -1px 1px 0 #080a1a,
+      1px 1px 0 #080a1a,
+      0px 0px 8px var(--color-brand-glow);
+  }
+
+  .jam-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+      0px 0px 0 transparent,
+      0px 0px 0 transparent,
+      0px 0px 0 transparent,
+      0px 0px 0 transparent,
+      inset 0px 0px 6px
+        color-mix(in srgb, var(--color-brand-glow) 60%, transparent);
+    transition-duration: 0.05s;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+  will-change: transform;
+}

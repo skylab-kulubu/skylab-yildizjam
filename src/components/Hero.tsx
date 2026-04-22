@@ -43,7 +43,12 @@ export default function Hero() {
             <Button
               glowColor="var(--color-brand-action)"
               cornerColor="var(--color-brand-action)"
-              onClick={() => alert("photos printed")}
+              onClick={() =>
+                window.open(
+                  "https://skyl.app/yildiz-jam-katilimci-formu",
+                  "_blank",
+                )
+              }
               className="w-full sm:w-auto sm:min-w-55!"
             >
               <div className="flex items-center justify-center gap-3">
@@ -53,10 +58,16 @@ export default function Hero() {
                 </span>
               </div>
             </Button>
+
             <Button
               glowColor="var(--color-brand-glow)"
               cornerColor="var(--color-brand-glow)"
-              onClick={() => alert("bogos binted")}
+              onClick={() =>
+                window.open(
+                  "https://skyl.app/yildiz-jam-yarisma-basvuru",
+                  "_blank",
+                )
+              }
               className="w-full sm:w-auto sm:min-w-55!"
             >
               <div className="flex items-center justify-center gap-3">

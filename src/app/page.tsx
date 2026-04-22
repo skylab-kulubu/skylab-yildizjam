@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import MarqueeSeparator from "@/components/Marquee";
 import Features from "@/components/Features";
 import FAQ from "@/components/Faq";
 import Experts from "@/components/Experts";
@@ -16,6 +17,7 @@ export default function Home() {
       <Background />
       <Header />
       <Hero />
+      <MarqueeSeparator />
       <Features />
       <Prizes />
       <Experts />
