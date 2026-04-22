@@ -86,7 +86,7 @@ export default function CountdownTimer({
 
   return (
     <>
-      {!timeLeft.hasEnded && (
+      {!timeLeft.hasEnded && timeLeft.isMounted && (
         <div className="flex flex-col items-center justify-center w-full min-h-[100px] sm:min-h-[120px] py-4">
           <div className="flex items-start justify-center gap-2 sm:gap-4">
             <TimerUnit
