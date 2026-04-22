@@ -279,7 +279,6 @@ export default function Background({
     let alive = true;
     const clientSeed = seed === 2026 ? (Math.random() * 1_000_000) | 0 : seed;
 
-    // Gradient cache — planet ve nebula gradientları her frame yeniden oluşturulmasın
     const planetGradCache = new Map<Planet, CanvasGradient>();
     const nebulaGradCache = new Map<Nebula, CanvasGradient>();
 
@@ -290,7 +289,6 @@ export default function Background({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       buffer.width = Math.ceil(rect.width / PIXEL_SCALE);
       buffer.height = Math.ceil(rect.height / PIXEL_SCALE);
-      // Resize'da cache'i temizle — yeni drawScale gerekli
       planetGradCache.clear();
       nebulaGradCache.clear();
       buildScene(rect.width, rect.height, clientSeed);
@@ -320,7 +318,6 @@ export default function Background({
         Math.min(1, elapsed / STAR_FADE_IN_DURATION),
       );
 
-      // Stars — en yoğun loop, minimum işlem
       const stars = d.stars;
       const starsLen = stars.length;
       for (let i = 0; i < starsLen; i++) {
@@ -349,7 +346,6 @@ export default function Background({
       bCtx.clearRect(0, 0, buffer.width, buffer.height);
       bCtx.imageSmoothingEnabled = false;
 
-      // Nebulas
       const nebulas = d.nebulas;
       for (let i = 0; i < nebulas.length; i++) {
         const n = nebulas[i];
@@ -375,7 +371,6 @@ export default function Background({
         bCtx.restore();
       }
 
-      // Galaxies
       const galaxies = d.galaxies;
       for (let i = 0; i < galaxies.length; i++) {
         const g = galaxies[i];
@@ -405,7 +400,6 @@ export default function Background({
         bCtx.restore();
       }
 
-      // Planets — gradient cache kullan
       const planets = d.planets;
       for (let i = 0; i < planets.length; i++) {
         const p = planets[i];
@@ -443,7 +437,6 @@ export default function Background({
         bCtx.restore();
       }
 
-      // Asteroids — mutasyon + draw aynı loop
       const asteroids = d.asteroids;
       for (let i = 0; i < asteroids.length; i++) {
         const ast = asteroids[i];
@@ -489,7 +482,6 @@ export default function Background({
         bCtx.restore();
       }
 
-      // Spaceships
       const spaceships = d.spaceships;
       for (let i = 0; i < spaceships.length; i++) {
         const ship = spaceships[i];

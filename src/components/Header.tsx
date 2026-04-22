@@ -435,7 +435,10 @@ export default function Header() {
                     >
                       <button
                         onClick={() => {
-                          alert("Zirve Kayıt");
+                          window.open(
+                            "https://skyl.app/yildiz-jam-katilimci-formu",
+                            "_blank",
+                          );
                           setIsRegisterOpen(false);
                         }}
                         className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-brand-main/20 text-slate-300 hover:text-white transition-all duration-200 text-left group"
@@ -445,10 +448,15 @@ export default function Header() {
                           ZİRVE
                         </span>
                       </button>
+
                       <div className="h-px w-[calc(100%-16px)] bg-linear-to-r from-transparent via-brand-main/30 to-transparent mx-auto" />
+
                       <button
                         onClick={() => {
-                          alert("Yarışma Kayıt");
+                          window.open(
+                            "https://skyl.app/yildiz-jam-yarisma-basvuru",
+                            "_blank",
+                          );
                           setIsRegisterOpen(false);
                         }}
                         className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-brand-glow/15 text-slate-300 hover:text-white transition-all duration-200 text-left group"
