@@ -1,15 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Card from "./Card";
-
-interface TimeLeft {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-  hasEnded: boolean;
-}
+import { useCountdown, TimeLeft } from "@/hooks/useCountdown";
 
 interface CountdownTimerProps {
   targetDate?: Date;
@@ -17,22 +9,6 @@ interface CountdownTimerProps {
   glowColor?: string;
   separatorColor?: string;
 }
-
-const DEFAULT_TARGET = new Date("2026-05-08T00:00:00");
-
-const calculateTimeLeft = (target: Date, current: Date): TimeLeft => {
-  const difference = target.getTime() - current.getTime();
-  if (difference <= 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0, hasEnded: true };
-  }
-  return {
-    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((difference / 1000 / 60) % 60),
-    seconds: Math.floor((difference / 1000) % 60),
-    hasEnded: false,
-  };
-};
 
 const TimerUnit = ({
   value,
@@ -102,54 +78,16 @@ const Separator = ({
 );
 
 export default function CountdownTimer({
-  targetDate = DEFAULT_TARGET,
   glowColor = "var(--color-brand-glow)",
   cornerColor = "color-mix(in srgb, var(--color-brand-glow) 80%, transparent)",
   separatorColor = "var(--color-brand-action)",
 }: CountdownTimerProps) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
-
-  useEffect(() => {
-    const update = () => setTimeLeft(calculateTimeLeft(targetDate, new Date()));
-    update();
-    const interval = setInterval(update, 1000);
-    return () => clearInterval(interval);
-  }, [targetDate.getTime()]);
+  const timeLeft = useCountdown();
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-[100px] sm:min-h-[120px] py-4">
-      {!timeLeft ? (
-        <div className="flex items-start justify-center gap-2 sm:gap-4 opacity-50 grayscale transition-opacity duration-1000">
-          <TimerUnit
-            label="GÜN"
-            isPlaceholder
-            cornerColor={cornerColor}
-            glowColor={glowColor}
-          />
-          <Separator isPlaceholder color={separatorColor} />
-          <TimerUnit
-            label="SAAT"
-            isPlaceholder
-            cornerColor={cornerColor}
-            glowColor={glowColor}
-          />
-          <Separator isPlaceholder color={separatorColor} />
-          <TimerUnit
-            label="DAKİKA"
-            isPlaceholder
-            cornerColor={cornerColor}
-            glowColor={glowColor}
-          />
-          <Separator isPlaceholder color={separatorColor} />
-          <TimerUnit
-            label="SANİYE"
-            isPlaceholder
-            cornerColor={cornerColor}
-            glowColor={glowColor}
-          />
-        </div>
-      ) : (
-        !timeLeft.hasEnded && (
+    <>
+      {!timeLeft.hasEnded && (
+        <div className="flex flex-col items-center justify-center w-full min-h-[100px] sm:min-h-[120px] py-4">
           <div className="flex items-start justify-center gap-2 sm:gap-4">
             <TimerUnit
               value={timeLeft.days}
@@ -179,8 +117,8 @@ export default function CountdownTimer({
               glowColor={glowColor}
             />
           </div>
-        )
+        </div>
       )}
-    </div>
+    </>
   );
 }

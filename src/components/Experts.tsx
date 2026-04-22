@@ -35,21 +35,23 @@ export default function Experts() {
   ];
 
   return (
-    <div className="flex flex-col">
-      {sections.map((s) => (
-        <PageSection
-          key={s.id}
-          id={s.id}
-          title={s.title}
-          tag={s.tag}
-          color={s.color}
-          variant="subcategory"
-          className="py-0"
-          showBar={true}
-        >
-          {" "}
-        </PageSection>
-      ))}
-    </div>
+    <section id="ekip" className="relative z-10 w-full py-12 mb-12">
+      <div className="flex flex-col">
+        {sections.map((s) => (
+          <PageSection
+            key={s.id}
+            id={s.id}
+            title={s.title}
+            tag={s.tag}
+            color={s.color}
+            variant="subcategory"
+            className="py-0"
+            showBar={true}
+          >
+            {" "}
+          </PageSection>
+        ))}
+      </div>
+    </section>
   );
 }

@@ -7,7 +7,10 @@ import { fadeUp, fadeScale, staggerContainer } from "@/lib/animations";
 
 export default function Hero() {
   return (
-    <section className="relative z-10 w-full pt-40 lg:pt-52 mb-24 overflow-hidden">
+    <section
+      id="home"
+      className="relative z-10 w-full pt-40 lg:pt-52 mb-24 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
         <motion.div
           variants={staggerContainer}
