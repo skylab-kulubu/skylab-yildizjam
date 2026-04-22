@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Crosshair } from "lucide-react";
 import Button from "./Button";
 import YildizJamLogo from "./YildizJamLogo";
-import { fadeUp, staggerContainer } from "@/lib/animations";
+import CountdownTimer from "./CountdownTimer";
+import { fadeUp, fadeScale, staggerContainer } from "@/lib/animations";
 
 export default function Hero() {
   return (
@@ -35,6 +36,13 @@ export default function Hero() {
               Oyun Geliştirme Zirvesi & Yarışması
             </motion.h2>
           </div>
+
+          <motion.div
+            variants={fadeScale}
+            className="w-full lg:w-auto scale-90 sm:scale-100 origin-center lg:origin-left flex justify-center lg:justify-start"
+          >
+            <CountdownTimer />
+          </motion.div>
 
           <motion.div
             variants={fadeUp}
