@@ -1,54 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { staggerContainer, fadeUp } from "@/lib/animations";
+import Card from "@/components/Card";
+import { fadeScale, fadeUp, staggerContainer } from "@/lib/animations";
 import PageSection from "./PageSection";
-
-const SPONSOR_CATEGORIES = [
-  {
-    id: "gold",
-    title: "Altın Sponsor",
-    color: "var(--color-brand-reward)",
-    count: 2,
-  },
-  {
-    id: "bronze",
-    title: "Bronz Sponsor",
-    color: "#CD7F32",
-    count: 3,
-  },
-  {
-    id: "session",
-    title: "Oturum & Fuaye",
-    color: "var(--color-brand-glow)",
-    count: 4,
-  },
-  {
-    id: "product",
-    title: "Ürün Sponsorları",
-    color: "var(--color-brand-action)",
-    count: 6,
-  },
-];
+import { SPONSOR_CATEGORIES, SPONSORS_DATA } from "@/lib/sponsors";
 
 const SponsorRow = ({
+  categoryId,
   title,
   color,
-  count,
+  sponsors,
 }: {
+  categoryId: string;
   title: string;
   color: string;
-  count: number;
+  sponsors: any[];
 }) => {
+  if (sponsors.length === 0) return null;
+
+  const getSizeClasses = (id: string) => {
+    switch (id) {
+      case "gold":
+        return "w-32 sm:w-40 h-16 sm:h-20";
+      case "bronze":
+        return "w-28 sm:w-36 h-14 sm:h-16";
+      case "session":
+        return "w-24 sm:w-32 h-12 sm:h-14";
+      case "product":
+        return "w-20 sm:w-28 h-10 sm:h-12";
+      default:
+        return "w-24 sm:w-32 h-12 sm:h-14";
+    }
+  };
+
   return (
-    <div className="space-y-6 w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center gap-6">
       <motion.div
         variants={fadeUp}
-        className="flex items-center gap-4 w-full max-w-4xl mx-auto px-4"
+        className="flex items-center gap-4 w-full max-w-3xl mx-auto px-4"
       >
         <div className="h-px flex-1 bg-white/10" />
         <h3
-          className="font-pixel text-[10px] sm:text-xs tracking-[0.2em] whitespace-nowrap uppercase"
+          className="font-pixel text-[8px] sm:text-[10px] tracking-[0.2em] whitespace-nowrap uppercase opacity-80"
           style={{ color: color }}
         >
           {title}
@@ -58,8 +52,28 @@ const SponsorRow = ({
 
       <motion.div
         variants={staggerContainer}
-        className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 w-full max-w-5xl mx-auto px-4"
-      ></motion.div>
+        className="flex flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 w-full max-w-4xl mx-auto px-4"
+      >
+        {sponsors.map((sponsor) => (
+          <motion.div variants={fadeScale} key={sponsor.id}>
+            <Card
+              noPadding
+              variant="solid"
+              className={`${getSizeClasses(categoryId)} shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 group bg-space/40 backdrop-blur-sm`}
+              cornerColor={color}
+              glowColor={color}
+            >
+              <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 bg-white/5">
+                <img
+                  src={sponsor.logoUrl}
+                  alt={sponsor.name}
+                  className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300"
+                />
+              </div>
+            </Card>
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   );
 };
@@ -73,15 +87,22 @@ export default function Sponsors() {
       variant="section"
       showBar={true}
     >
-      <div className="w-full space-y-16 lg:space-y-20">
-        {SPONSOR_CATEGORIES.map((category) => (
-          <SponsorRow
-            key={category.id}
-            title={category.title}
-            color={category.color}
-            count={category.count}
-          />
-        ))}
+      <div className="w-full space-y-12">
+        {SPONSOR_CATEGORIES.map((category) => {
+          const categorySponsors = SPONSORS_DATA.filter(
+            (s) => s.categoryId === category.id,
+          );
+
+          return (
+            <SponsorRow
+              key={category.id}
+              categoryId={category.id}
+              title={category.title}
+              color={category.color}
+              sponsors={categorySponsors}
+            />
+          );
+        })}
       </div>
     </PageSection>
   );

@@ -59,40 +59,42 @@ export function MemberCard({ color, data }: { color: string; data: any }) {
 
 export default function Experts() {
   return (
-    <div className="flex flex-col w-full">
-      {EXPERT_CATEGORIES.map((section) => {
-        const sectionExperts = EXPERTS_DATA.filter(
-          (e) => e.categoryId === section.id,
-        );
+    <section id="ekip" className="relative z-10 w-full py-12 mb-12">
+      <div className="flex flex-col w-full">
+        {EXPERT_CATEGORIES.map((section) => {
+          const sectionExperts = EXPERTS_DATA.filter(
+            (e) => e.categoryId === section.id,
+          );
 
-        if (sectionExperts.length === 0) return null;
+          if (sectionExperts.length === 0) return null;
 
-        return (
-          <PageSection
-            key={section.id}
-            id={section.id}
-            tag={section.tag}
-            title={section.title}
-            variant="subcategory"
-            color={section.color}
-            showBar={true}
-            className="py-16"
-          >
-            <motion.div
-              variants={staggerContainer}
-              className="flex flex-wrap justify-center gap-6 w-full max-w-5xl mx-auto px-4"
+          return (
+            <PageSection
+              key={section.id}
+              id={section.id}
+              tag={section.tag}
+              title={section.title}
+              variant="subcategory"
+              color={section.color}
+              showBar={true}
+              className="py-16"
             >
-              {sectionExperts.map((expert) => (
-                <MemberCard
-                  key={expert.id}
-                  color={section.color}
-                  data={expert}
-                />
-              ))}
-            </motion.div>
-          </PageSection>
-        );
-      })}
-    </div>
+              <motion.div
+                variants={staggerContainer}
+                className="flex flex-wrap justify-center gap-6 w-full max-w-5xl mx-auto px-4"
+              >
+                {sectionExperts.map((expert) => (
+                  <MemberCard
+                    key={expert.id}
+                    color={section.color}
+                    data={expert}
+                  />
+                ))}
+              </motion.div>
+            </PageSection>
+          );
+        })}
+      </div>
+    </section>
   );
 }
