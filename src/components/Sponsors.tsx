@@ -42,7 +42,7 @@ const SponsorRow = ({
       >
         <div className="h-px flex-1 bg-white/10" />
         <h3
-          className="font-pixel text-[8px] sm:text-[10px] tracking-[0.2em] whitespace-nowrap uppercase opacity-80"
+          className="font-pixel text-[10px] sm:text-xs tracking-[0.2em] whitespace-nowrap uppercase opacity-80"
           style={{ color: color }}
         >
           {title}

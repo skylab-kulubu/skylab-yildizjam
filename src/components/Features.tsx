@@ -66,7 +66,7 @@ export default function Features() {
               className="h-full overflow-visible"
             >
               <div className="p-8 flex flex-col items-center text-center gap-5 h-full relative">
-                <div className="absolute top-0 right-0 p-3 opacity-20 font-pixel text-[8px]">
+                <div className="absolute top-0 right-0 p-3 opacity-20 font-pixel text-[10px]">
                   {perk.lvl}
                 </div>
 

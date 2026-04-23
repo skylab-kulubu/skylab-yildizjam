@@ -47,7 +47,7 @@ const TimerUnit = ({
         </span>
       </Card>
     </div>
-    <span className="font-pixel text-[8px] uppercase tracking-widest text-slate-500">
+    <span className="font-pixel text-[10px] uppercase tracking-widest text-slate-500">
       {label}
     </span>
   </div>
@@ -87,7 +87,7 @@ export default function CountdownTimer({
   return (
     <>
       {!timeLeft.hasEnded && timeLeft.isMounted && (
-        <div className="flex flex-col items-center justify-center w-full min-h-[100px] sm:min-h-[120px] py-4">
+        <div className="flex flex-col items-center justify-center w-full min-h-25 sm:min-h-30 py-4">
           <div className="flex items-start justify-center gap-2 sm:gap-4">
             <TimerUnit
               value={timeLeft.days}

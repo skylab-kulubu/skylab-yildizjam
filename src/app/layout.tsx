@@ -20,6 +20,10 @@ const pixelify = Pixelify_Sans({
 export const metadata: Metadata = {
   title: "YıldızJam 2026",
   description: "metadeskripsiyon",
+  icons: {
+    icon: "/img/yildizjam.png",
+    apple: "/img/yildizjam.png",
+  },
 };
 
 export default function RootLayout({

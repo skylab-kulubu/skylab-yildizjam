@@ -14,6 +14,8 @@ const PIXEL_SCALE = 4;
 const STAR_FADE_IN_DURATION = 1500;
 const BUFFER_FADE_IN_DURATION = 2500;
 const BUFFER_FADE_IN_DELAY = 1000;
+const TARGET_FPS = 45;
+const FRAME_MIN_TIME = 1000 / TARGET_FPS;
 
 function seededRandom(seed: number): () => number {
   let s = seed;
@@ -104,6 +106,10 @@ export default function Background({
   const bufferRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef(0);
   const startTimeRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const lastBuildWidthRef = useRef(0);
+  const scrollYRef = useRef(0);
+
   const dataRef = useRef<SceneData>({
     stars: [],
     nebulas: [],
@@ -130,6 +136,11 @@ export default function Background({
       const { starWrapArea } = d;
       const isMobile = width < 768;
 
+      const prefersReducedMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const effectiveDensity = prefersReducedMotion ? density * 0.4 : density;
+
       const getSegY = (index: number, total: number) => {
         const seg = starWrapArea / Math.max(1, total);
         return index * seg + randStatic() * seg * 0.8;
@@ -140,7 +151,7 @@ export default function Background({
           : 0.55 + randStatic() * 0.4) * width;
 
       const area = (width * starWrapArea) / 1_000_000;
-      const count = (350 * density * Math.max(1, area)) | 0;
+      const count = (350 * effectiveDensity * Math.max(1, area)) | 0;
       const colors = ["#FFFFFF", "#00FFFF", "#FF0080", "#FFC107", "#8B5CF6"];
 
       d.stars = Array.from({ length: count }, () => {
@@ -232,7 +243,7 @@ export default function Background({
         "#00FF00",
         "#FF8800",
       ];
-      const shipCount = isMobile ? 3 : 6;
+      const shipCount = isMobile ? 2 : 4;
       d.spaceships = Array.from({ length: shipCount }, (_, i) => {
         const isGoingRight = randStatic() > 0.5;
         return {
@@ -247,7 +258,7 @@ export default function Background({
         };
       });
 
-      const asteroidCount = isMobile ? 10 : 20;
+      const asteroidCount = isMobile ? 6 : 12;
       d.asteroids = Array.from({ length: asteroidCount }, (_, i) => ({
         x: randStatic() * width,
         y: getSegY(i, asteroidCount),
@@ -281,30 +292,54 @@ export default function Background({
 
     const planetGradCache = new Map<Planet, CanvasGradient>();
     const nebulaGradCache = new Map<Nebula, CanvasGradient>();
+    const galaxyGradCache = new Map<Galaxy, CanvasGradient>();
+
+    const updateScroll = () => {
+      scrollYRef.current = window.scrollY;
+    };
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    updateScroll();
 
     const doResize = () => {
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      const w = rect.width;
+      const h = rect.height;
+
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buffer.width = Math.ceil(rect.width / PIXEL_SCALE);
-      buffer.height = Math.ceil(rect.height / PIXEL_SCALE);
-      planetGradCache.clear();
-      nebulaGradCache.clear();
-      buildScene(rect.width, rect.height, clientSeed);
+      buffer.width = Math.ceil(w / PIXEL_SCALE);
+      buffer.height = Math.ceil(h / PIXEL_SCALE);
+
+      if (Math.abs(w - lastBuildWidthRef.current) > 50) {
+        lastBuildWidthRef.current = w;
+        planetGradCache.clear();
+        nebulaGradCache.clear();
+        galaxyGradCache.clear();
+        buildScene(w, h, clientSeed);
+      }
     };
 
     const resizeObserver = new ResizeObserver(doResize);
     resizeObserver.observe(canvas);
     doResize();
+
     startTimeRef.current = performance.now();
+    lastTimeRef.current = performance.now();
 
     const render = (now: number) => {
       if (!alive) return;
 
+      const elapsedFrame = now - lastTimeRef.current;
+      if (elapsedFrame < FRAME_MIN_TIME) {
+        rafRef.current = requestAnimationFrame(render);
+        return;
+      }
+      lastTimeRef.current = now - (elapsedFrame % FRAME_MIN_TIME);
+
       const d = dataRef.current;
       const t = now * 0.001;
-      const scrollY = window.scrollY;
+      const scrollY = scrollYRef.current;
       const viewW = canvas.width / dpr;
       const viewH = canvas.height / dpr;
       const { starWrapArea, drawScale } = d;
@@ -324,7 +359,8 @@ export default function Background({
         const star = stars[i];
         let sy = (star.y - starParallax) % starWrapArea;
         if (sy < 0) sy += starWrapArea;
-        if (sy > viewH + 10) continue;
+
+        if (sy > viewH + 5 || sy < -5) continue;
 
         ctx.globalAlpha =
           star.opacity *
@@ -346,9 +382,8 @@ export default function Background({
       bCtx.clearRect(0, 0, buffer.width, buffer.height);
       bCtx.imageSmoothingEnabled = false;
 
-      const nebulas = d.nebulas;
-      for (let i = 0; i < nebulas.length; i++) {
-        const n = nebulas[i];
+      for (let i = 0; i < d.nebulas.length; i++) {
+        const n = d.nebulas[i];
         let ny = (n.y - scrollY * n.parallax) % starWrapArea;
         if (ny < 0) ny += starWrapArea;
         if (ny > viewH + n.radius || ny < -n.radius) continue;
@@ -361,7 +396,6 @@ export default function Background({
           grad.addColorStop(1, "transparent");
           nebulaGradCache.set(n, grad);
         }
-
         bCtx.save();
         bCtx.translate((n.x * drawScale) | 0, (ny * drawScale) | 0);
         bCtx.fillStyle = grad;
@@ -371,9 +405,8 @@ export default function Background({
         bCtx.restore();
       }
 
-      const galaxies = d.galaxies;
-      for (let i = 0; i < galaxies.length; i++) {
-        const g = galaxies[i];
+      for (let i = 0; i < d.galaxies.length; i++) {
+        const g = d.galaxies[i];
         let gy = (g.y - scrollY * g.parallax) % starWrapArea;
         if (gy < 0) gy += starWrapArea;
         if (gy > viewH + g.radius || gy < -g.radius) continue;
@@ -383,16 +416,15 @@ export default function Background({
         bCtx.translate((g.x * drawScale) | 0, (gy * drawScale) | 0);
         bCtx.rotate(g.angle + t * 0.015);
         bCtx.scale(1, 0.35);
-        const coreGrad = bCtx.createRadialGradient(
-          0,
-          0,
-          0,
-          0,
-          0,
-          v_radius * 0.4,
-        );
-        coreGrad.addColorStop(0, g.coreColor);
-        coreGrad.addColorStop(1, "transparent");
+
+        let coreGrad = galaxyGradCache.get(g);
+        if (!coreGrad) {
+          coreGrad = bCtx.createRadialGradient(0, 0, 0, 0, 0, v_radius * 0.4);
+          coreGrad.addColorStop(0, g.coreColor);
+          coreGrad.addColorStop(1, "transparent");
+          galaxyGradCache.set(g, coreGrad);
+        }
+
         bCtx.fillStyle = coreGrad;
         bCtx.beginPath();
         bCtx.arc(0, 0, v_radius | 0, 0, TWO_PI);
@@ -400,9 +432,8 @@ export default function Background({
         bCtx.restore();
       }
 
-      const planets = d.planets;
-      for (let i = 0; i < planets.length; i++) {
-        const p = planets[i];
+      for (let i = 0; i < d.planets.length; i++) {
+        const p = d.planets[i];
         let py = (p.y - scrollY * p.parallax) % starWrapArea;
         if (py < 0) py += starWrapArea;
         if (py > viewH + p.radius * 3 || py < -p.radius * 3) continue;
@@ -417,14 +448,12 @@ export default function Background({
           pGrad.addColorStop(1, p.shadowColor);
           planetGradCache.set(p, pGrad);
         }
-
         bCtx.save();
         bCtx.translate((p.x * drawScale) | 0, (py * drawScale) | 0);
         bCtx.fillStyle = pGrad;
         bCtx.beginPath();
         bCtx.arc(0, 0, v_rad | 0, 0, TWO_PI);
         bCtx.fill();
-
         if (p.hasRing) {
           bCtx.rotate(p.ringAngle);
           bCtx.scale(1, 0.2);
@@ -437,9 +466,8 @@ export default function Background({
         bCtx.restore();
       }
 
-      const asteroids = d.asteroids;
-      for (let i = 0; i < asteroids.length; i++) {
-        const ast = asteroids[i];
+      for (let i = 0; i < d.asteroids.length; i++) {
+        const ast = d.asteroids[i];
         ast.x += ast.vx;
         ast.y += ast.vy;
         ast.rot += ast.vRot;
@@ -482,9 +510,8 @@ export default function Background({
         bCtx.restore();
       }
 
-      const spaceships = d.spaceships;
-      for (let i = 0; i < spaceships.length; i++) {
-        const ship = spaceships[i];
+      for (let i = 0; i < d.spaceships.length; i++) {
+        const ship = d.spaceships[i];
         ship.x += ship.vx;
         if (ship.x > viewW + 100) ship.x = -100;
         else if (ship.x < -100) ship.x = viewW + 100;
@@ -498,7 +525,6 @@ export default function Background({
         bCtx.translate((ship.x * drawScale) | 0, (sy * drawScale) | 0);
         bCtx.rotate(Math.atan2(ship.vy, ship.vx));
         bCtx.scale(ship.scale, ship.scale);
-
         bCtx.fillStyle = ship.color;
         bCtx.fillRect(-2, -1, 4, 3);
         bCtx.fillRect(2, 0, 2, 1);
@@ -548,6 +574,7 @@ export default function Background({
     rafRef.current = requestAnimationFrame(render);
     return () => {
       alive = false;
+      window.removeEventListener("scroll", updateScroll);
       cancelAnimationFrame(rafRef.current);
       resizeObserver.disconnect();
     };

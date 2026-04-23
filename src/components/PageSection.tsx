@@ -30,22 +30,22 @@ export default function PageSection({
 
   const sizes = {
     hero: {
-      title: "text-4xl sm:text-6xl",
-      tag: "text-[12px]",
-      gap: "gap-16",
-      py: "py-32",
+      title: "text-3xl sm:text-5xl md:text-6xl",
+      tag: "text-[12px] sm:text-[14px]",
+      gap: "gap-8 sm:gap-12 md:gap-16",
+      py: "py-16 sm:py-24 md:py-32",
     },
     section: {
-      title: "text-3xl sm:text-4xl",
-      tag: "text-[10px]",
-      gap: "gap-12",
-      py: "py-24",
+      title: "text-2xl sm:text-3xl md:text-4xl",
+      tag: "text-[11px] sm:text-[12px]",
+      gap: "gap-6 sm:gap-8 md:gap-12",
+      py: "py-12 sm:py-16 md:py-24",
     },
     subcategory: {
       title: "text-xl sm:text-2xl",
-      tag: "text-[8px]",
-      gap: "gap-8",
-      py: "py-12",
+      tag: "text-[10px]",
+      gap: "gap-6 sm:gap-8",
+      py: "py-8 sm:py-12",
     },
   };
 
@@ -56,18 +56,21 @@ export default function PageSection({
       id={id}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.2, margin: "0px 0px -150px 0px" }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
       variants={staggerContainer}
-      className={`relative z-10 w-full transform-gpu ${currentSize.py} ${className}`}
+      className={`relative z-10 w-full max-w-[100vw] overflow-hidden transform-gpu ${currentSize.py} ${className}`}
       style={{ "--layout-color": baseColor } as React.CSSProperties}
     >
       <div
-        className={`${isFullWidth ? "w-full" : "max-w-7xl mx-auto px-4 sm:px-6"}`}
+        className={`${isFullWidth ? "w-full" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}`}
       >
-        <div className={`flex flex-col items-center ${currentSize.gap}`}>
-          <motion.div variants={fadeUp} className="text-center space-y-3">
+        <div className={`flex flex-col items-center w-full ${currentSize.gap}`}>
+          <motion.div
+            variants={fadeUp}
+            className="w-full max-w-4xl text-center space-y-3 px-2 sm:px-0"
+          >
             <p
-              className={`font-pixel ${currentSize.tag} uppercase tracking-[0.4em] mb-2`}
+              className={`font-pixel ${currentSize.tag} uppercase tracking-[0.2em] sm:tracking-[0.4em] mb-2`}
               style={{
                 color: `color-mix(in srgb, ${baseColor}, transparent 50%)`,
               }}
@@ -76,14 +79,14 @@ export default function PageSection({
             </p>
 
             <h2
-              className={`font-display ${currentSize.title} font-bold tracking-[0.3em] uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]`}
+              className={`font-display ${currentSize.title} font-bold tracking-[0.15em] sm:tracking-[0.3em] uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] wrap-break-word`}
             >
               {title}
             </h2>
 
             {showBar && (
               <div
-                className={`h-0.5 ${variant === "hero" ? "w-24" : "w-16"} mx-auto mt-2 shadow-[0_0_10px_var(--layout-color)]`}
+                className={`h-0.5 ${variant === "hero" ? "w-16 sm:w-24" : "w-12 sm:w-16"} mx-auto mt-2 shadow-[0_0_10px_var(--layout-color)]`}
                 style={{
                   backgroundColor: `color-mix(in srgb, ${baseColor}, transparent 50%)`,
                 }}
@@ -91,7 +94,7 @@ export default function PageSection({
             )}
           </motion.div>
 
-          {children}
+          <div className="w-full">{children}</div>
         </div>
       </div>
     </motion.section>

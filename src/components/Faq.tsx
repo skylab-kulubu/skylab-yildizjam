@@ -105,7 +105,7 @@ export default function Faq() {
         </p>
 
         <div className="flex flex-col items-center gap-2">
-          <span className="font-pixel text-[10px] text-brand-glow uppercase tracking-widest">
+          <span className="font-pixel text-xs text-brand-glow uppercase tracking-widest">
             İletişim Adresimiz:
           </span>
           <Button
@@ -118,9 +118,9 @@ export default function Faq() {
           >
             <div className="flex items-center">
               <Mail className="w-4 h-4 mr-3 text-brand-glow" />
-              <span className="font-pixel text-[10px] tracking-widest text-white uppercase">
+              <span className="font-pixel text-xs tracking-widest text-white uppercase">
                 SEND_MAIL:{" "}
-                <span className="font-tech text-[10px] sm:text-xs opacity-70 lowercase">
+                <span className="font-tech text-xs opacity-70 lowercase">
                   info@yildizskylab.com
                 </span>
               </span>

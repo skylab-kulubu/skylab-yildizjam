@@ -46,7 +46,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={`group relative inline-flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 select-none min-w-[220px] ${className}`}
+        className={`group relative inline-flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 select-none min-w-55 ${className}`}
         style={style}
         {...props}
       >
@@ -131,7 +131,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ))}
 
         <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 group-hover:w-1/2 transition-all duration-500 opacity-0 group-hover:opacity-100 z-30"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-1/2 transition-all duration-500 opacity-0 group-hover:opacity-100 z-30"
           style={{
             background: `linear-gradient(90deg, transparent, ${cornerColor}, transparent)`,
             filter: `drop-shadow(0 0 8px ${cornerColor})`,
