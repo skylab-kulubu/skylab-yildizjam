@@ -16,6 +16,7 @@ type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   contentClassName?: string;
   noPadding?: boolean;
   variant?: CardVariant;
+  enableBlur?: boolean;
 };
 
 const toUnit = (v: string | number) => (typeof v === "number" ? `${v}px` : v);
@@ -62,6 +63,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       contentClassName = "",
       noPadding = false,
       variant = "default",
+      enableBlur = false,
       style,
       ...props
     },
@@ -86,6 +88,13 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       "bottom-0 right-0 scale-x-[-1] scale-y-[-1]",
     ];
 
+    const getBgColor = () => {
+      if (enableBlur) return v.bg;
+      if (variant === "default") return v.bg.replace("0.45", "0.75");
+      if (variant === "soft") return v.bg.replace("0.35", "0.65");
+      return v.bg.replace("0.85", "0.95");
+    };
+
     return (
       <div
         ref={ref}
@@ -102,13 +111,18 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             clipPath: shape,
-            backdropFilter: "blur(20px) saturate(150%)",
-            WebkitBackdropFilter: "blur(20px) saturate(150%)",
+            backdropFilter: enableBlur ? "blur(20px) saturate(150%)" : "none",
+            WebkitBackdropFilter: enableBlur
+              ? "blur(20px) saturate(150%)"
+              : "none",
           }}
         >
           <div
             className="absolute inset-0"
-            style={{ backgroundImage: glassBackground, backgroundColor: v.bg }}
+            style={{
+              backgroundImage: glassBackground,
+              backgroundColor: getBgColor(),
+            }}
           />
           <div className="absolute inset-0 bg-[radial-gradient(140%_110%_at_50%_0%,rgba(255,255,255,0.03),transparent_40%)]" />
           <div

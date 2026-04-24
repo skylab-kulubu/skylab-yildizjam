@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { Gem, Users, Sparkles } from "lucide-react";
 import Card from "@/components/Card";
