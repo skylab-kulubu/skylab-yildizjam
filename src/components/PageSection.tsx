@@ -32,20 +32,20 @@ export default function PageSection({
     hero: {
       title: "text-3xl sm:text-5xl md:text-6xl",
       tag: "text-[12px] sm:text-[14px]",
-      gap: "gap-8 sm:gap-12 md:gap-16",
-      py: "py-16 sm:py-24 md:py-32",
+      gap: "gap-6 sm:gap-8 md:gap-10",
+      py: "py-10 sm:py-16 md:py-20",
     },
     section: {
       title: "text-2xl sm:text-3xl md:text-4xl",
       tag: "text-[11px] sm:text-[12px]",
-      gap: "gap-6 sm:gap-8 md:gap-12",
-      py: "py-12 sm:py-16 md:py-24",
+      gap: "gap-4 sm:gap-6 md:gap-8",
+      py: "py-8 sm:py-10 md:py-14",
     },
     subcategory: {
       title: "text-xl sm:text-2xl",
       tag: "text-[10px]",
-      gap: "gap-6 sm:gap-8",
-      py: "py-8 sm:py-12",
+      gap: "gap-4 sm:gap-6",
+      py: "py-6 sm:py-8",
     },
   };
 
@@ -56,7 +56,7 @@ export default function PageSection({
       id={id}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -35% 0px" }}
       variants={staggerContainer}
       className={`relative z-10 w-full max-w-[100vw] overflow-hidden transform-gpu ${currentSize.py} ${className}`}
       style={{ "--layout-color": baseColor } as React.CSSProperties}

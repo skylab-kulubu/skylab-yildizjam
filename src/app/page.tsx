@@ -6,8 +6,8 @@ import FAQ from "@/components/Faq";
 import Experts from "@/components/Experts";
 import Sponsors from "@/components/Sponsors";
 import Prizes from "@/components/Prizes";
-import Footer from "@/components/Footer";
 import Background from "@/components/Background";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (

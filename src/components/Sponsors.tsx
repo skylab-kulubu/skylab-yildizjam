@@ -67,6 +67,8 @@ const SponsorRow = ({
                 <img
                   src={sponsor.logoUrl}
                   alt={sponsor.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300"
                 />
               </div>

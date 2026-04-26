@@ -11,7 +11,7 @@ export function MemberCard({ color, data }: { color: string; data: any }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="group relative w-32 sm:w-36 lg:w-40 z-10 hover:z-20 transform-gpu will-change-[transform,opacity]"
+      className="group relative w-32 sm:w-36 lg:w-40 z-10 md:hover:z-20 transform-gpu will-change-[transform,opacity]"
       style={{
         WebkitBackfaceVisibility: "hidden",
         backfaceVisibility: "hidden",
@@ -27,25 +27,27 @@ export function MemberCard({ color, data }: { color: string; data: any }) {
         contentClassName="z-0"
         glassBackground="linear-gradient(180deg, color-mix(in srgb, var(--color-plum) 62%, transparent), color-mix(in srgb, var(--color-space) 70%, transparent))"
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-          <div className="w-12 h-12 rounded-lg border-2 border-dashed border-white/10 bg-white/5 flex items-center justify-center relative group-hover:-translate-y-2 transition-transform duration-500 transform-gpu">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 pb-14 md:pb-0">
+          <div className="w-12 h-12 rounded-lg border-2 border-dashed border-white/10 bg-white/5 flex items-center justify-center relative md:group-hover:-translate-y-2 transition-transform duration-500 transform-gpu">
             {data.isLocked ? (
               <User className="text-white/10 w-5 h-5" />
             ) : (
               <img
                 src={data.image}
                 alt={data.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover rounded-lg"
               />
             )}
           </div>
-          <div className="font-pixel text-[10px] text-white/20 tracking-widest uppercase text-center px-2">
+          <div className="font-pixel text-[10px] text-white/40 tracking-widest uppercase text-center px-2">
             {data.name}
           </div>
         </div>
 
-        <div className="absolute bottom-0 w-full p-3 bg-space/90 backdrop-blur-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 border-t border-white/10 text-center transform-gpu will-change-transform">
-          <p className="font-pixel text-[8px] text-white/70 tracking-widest uppercase mb-1">
+        <div className="absolute bottom-0 w-full p-3 bg-space/90 backdrop-blur-md translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-500 border-t border-white/10 text-center transform-gpu will-change-transform">
+          <p className="font-pixel text-[10px] text-white/70 tracking-wider uppercase mb-1">
             {data.isLocked ? "GİZLİ KARAKTER" : "BİLGİ"}
           </p>
           <p className="font-display font-bold text-[10px] sm:text-xs text-white/50 uppercase mt-1">
@@ -59,7 +61,7 @@ export function MemberCard({ color, data }: { color: string; data: any }) {
 
 export default function Experts() {
   return (
-    <section id="ekip" className="relative z-10 w-full py-12 mb-12">
+    <section id="ekip" className="relative z-10 w-full">
       <div className="flex flex-col w-full">
         {EXPERT_CATEGORIES.map((section) => {
           const sectionExperts = EXPERTS_DATA.filter(
@@ -77,11 +79,10 @@ export default function Experts() {
               variant="subcategory"
               color={section.color}
               showBar={true}
-              className="py-16"
             >
               <motion.div
                 variants={staggerContainer}
-                className="flex flex-wrap justify-center gap-6 w-full max-w-5xl mx-auto px-4"
+                className="flex flex-wrap justify-center gap-3 sm:gap-5 lg:gap-6 w-full max-w-5xl mx-auto px-4"
               >
                 {sectionExperts.map((expert) => (
                   <MemberCard

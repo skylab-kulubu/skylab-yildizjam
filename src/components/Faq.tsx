@@ -25,7 +25,7 @@ export default function Faq() {
             <Card
               noPadding
               variant="solid"
-              className="cursor-pointer bg-plum/40 border-white/5 transition-all duration-300 group"
+              className="bg-plum/40 border-white/5 transition-all duration-300 group"
               cornerColor={
                 openFaq === item.id
                   ? "var(--color-brand-glow)"
@@ -35,12 +35,14 @@ export default function Faq() {
                 openFaq === item.id ? "var(--color-brand-glow)" : "transparent"
               }
             >
-              <div
-                className="px-6 py-5 flex justify-between items-center group-hover:bg-white/5 transition-colors"
+              <button
+                type="button"
+                aria-expanded={openFaq === item.id}
+                className="w-full text-left px-5 sm:px-6 py-5 flex justify-between items-center gap-3 group-hover:bg-white/5 transition-colors cursor-pointer"
                 onClick={() => setOpenFaq(openFaq === item.id ? null : item.id)}
               >
                 <span
-                  className={`font-tech text-sm transition-colors group-hover:text-white ${openFaq === item.id ? "text-white" : "text-slate-300"}`}
+                  className={`font-tech text-sm transition-colors group-hover:text-white flex-1 min-w-0 wrap-break-word ${openFaq === item.id ? "text-white" : "text-slate-300"}`}
                 >
                   <span
                     className={`font-pixel mr-2 transition-colors group-hover:text-brand-glow ${openFaq === item.id ? "text-brand-glow" : "text-slate-600"}`}
@@ -49,7 +51,7 @@ export default function Faq() {
                   </span>
                   {item.q}
                 </span>
-                <div className="flex items-center font-pixel text-sm select-none">
+                <div className="flex items-center font-pixel text-sm select-none shrink-0">
                   <span
                     className={`transition-colors mr-1 ${openFaq === item.id ? "text-brand-glow" : "text-slate-600 group-hover:text-slate-400"}`}
                   >
@@ -74,7 +76,7 @@ export default function Faq() {
                     ]
                   </span>
                 </div>
-              </div>
+              </button>
 
               <AnimatePresence>
                 {openFaq === item.id && (
@@ -97,7 +99,7 @@ export default function Faq() {
 
       <motion.div
         variants={fadeUp}
-        className="mt-16 pt-10 border-t border-white/5 text-center space-y-4 max-w-3xl mx-auto w-full"
+        className="mt-10 pt-6 border-t border-white/5 text-center space-y-4 max-w-3xl mx-auto w-full"
       >
         <p className="font-tech text-sm text-slate-400 leading-relaxed">
           Etkinlik, kayıt süreci veya diğer merak ettiğiniz tüm konular hakkında

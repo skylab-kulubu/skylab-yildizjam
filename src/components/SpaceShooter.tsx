@@ -50,22 +50,6 @@ interface Star {
   size: number;
 }
 
-const drawPlayer = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
-  ctx.fillStyle = "#00F0FF";
-  ctx.shadowColor = "#00F0FF";
-  ctx.shadowBlur = 5;
-  ctx.fillRect(x + 10, y, 4, 4);
-  ctx.fillRect(x + 8, y + 4, 8, 4);
-  ctx.fillRect(x + 4, y + 8, 16, 4);
-  ctx.fillRect(x, y + 12, 24, 4);
-  ctx.fillRect(x, y + 16, 8, 4);
-  ctx.fillRect(x + 16, y + 16, 8, 4);
-  ctx.fillStyle = "#FF003C";
-  ctx.shadowColor = "#FF003C";
-  ctx.fillRect(x + 8, y + 20, 8, 4);
-  ctx.shadowBlur = 0;
-};
-
 export const SpaceShooter: React.FC<SpaceShooterProps> = ({
   gameState,
   onStateChange,
@@ -78,6 +62,13 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
   const frameRef = useRef<number>(0);
   const starsRef = useRef<Star[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const flashRef = useRef<number>(0);
+  const floatingTextsRef = useRef(
+    Array.from({ length: 20 }, () => ({ active: false, x: 0, y: 0, alpha: 0 })),
+  );
+  const waveRef = useRef<number>(1);
+  const waveTimerRef = useRef<number>(0);
+  const killCountRef = useRef<number>(0);
 
   const pathObjectsRef = useRef<Record<string, Path2D>>({});
   const cacheRef = useRef<{
@@ -125,37 +116,43 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
     stateRef.current = gameState;
   }, [gameState]);
 
-  useEffect(() => {
-    const audio = new Audio("/yildizjam.wav");
-    audio.loop = true;
-    audio.volume = 0.5;
-    audioRef.current = audio;
+  const audioInitRef = useRef(false);
 
+  useEffect(() => {
+    if (gameState !== "playing") {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      return;
+    }
+    if (!audioInitRef.current) {
+      const audio = new Audio("/yildizjam.webm");
+      audio.loop = true;
+      audio.volume = 0.5;
+      audioRef.current = audio;
+      audioInitRef.current = true;
+    }
+    const audio = audioRef.current!;
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.setActionHandler("play", () => audio.play());
+      navigator.mediaSession.setActionHandler("pause", () => {});
+    }
+    audio.play().catch((e) => {
+      if (e.name !== "AbortError") console.warn(e);
+    });
+  }, [gameState]);
+
+  useEffect(() => {
     return () => {
-      audio.pause();
-      audio.src = "";
-      audio.load();
-      audioRef.current = null;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+        audioRef.current.load();
+        audioRef.current = null;
+      }
     };
   }, []);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (gameState === "playing") {
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.setActionHandler("play", () => audio.play());
-        navigator.mediaSession.setActionHandler("pause", () => {});
-      }
-      audio.play().catch((e) => {
-        if (e.name !== "AbortError") console.warn(e);
-      });
-    } else {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-  }, [gameState]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -166,6 +163,9 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
 
     let animationFrameId: number;
     let lastTime = performance.now();
+    let isCanvasVisible = true;
+    let isTabActive = !document.hidden;
+    let idleTimeoutId: ReturnType<typeof setTimeout> | null = null;
     const TARGET_FPS_IDLE = 15;
     const FRAME_MS_IDLE = 1000 / TARGET_FPS_IDLE;
 
@@ -219,12 +219,19 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
     const resize = () => {
       const parent = canvas.parentElement;
       if (parent) {
-        canvas.width = parent.clientWidth;
-        canvas.height = 200;
+        const newWidth = parent.clientWidth;
+        if (newWidth !== canvas.width) {
+          const ratio = newWidth / (canvas.width || newWidth);
+          canvas.width = newWidth;
+          canvas.height = 240;
+          starsRef.current.forEach((s) => {
+            s.x = s.x * ratio;
+          });
+        }
       }
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
     if (starsRef.current.length === 0) {
       starsRef.current = Array.from({ length: 40 }, () => ({
@@ -241,6 +248,40 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
       w: 24,
       h: 24,
     };
+
+    const PLAYER_PAD = 10;
+    const playerSprite = document.createElement("canvas");
+    playerSprite.width = 24 + PLAYER_PAD * 2;
+    playerSprite.height = 24 + PLAYER_PAD * 2;
+    const pSCtx = playerSprite.getContext("2d");
+    if (pSCtx) {
+      pSCtx.shadowBlur = 5;
+      pSCtx.fillStyle = "#00F0FF";
+      pSCtx.shadowColor = "#00F0FF";
+      pSCtx.fillRect(PLAYER_PAD + 10, PLAYER_PAD + 0, 4, 4);
+      pSCtx.fillRect(PLAYER_PAD + 8, PLAYER_PAD + 4, 8, 4);
+      pSCtx.fillRect(PLAYER_PAD + 4, PLAYER_PAD + 8, 16, 4);
+      pSCtx.fillRect(PLAYER_PAD + 0, PLAYER_PAD + 12, 24, 4);
+      pSCtx.fillRect(PLAYER_PAD + 0, PLAYER_PAD + 16, 8, 4);
+      pSCtx.fillRect(PLAYER_PAD + 16, PLAYER_PAD + 16, 8, 4);
+      pSCtx.fillStyle = "#FF003C";
+      pSCtx.shadowColor = "#FF003C";
+      pSCtx.fillRect(PLAYER_PAD + 8, PLAYER_PAD + 20, 8, 4);
+      pSCtx.shadowBlur = 0;
+    }
+
+    const BULLET_PAD = 8;
+    const bulletSprite = document.createElement("canvas");
+    bulletSprite.width = 4 + BULLET_PAD * 2;
+    bulletSprite.height = 10 + BULLET_PAD * 2;
+    const bSCtx = bulletSprite.getContext("2d");
+    if (bSCtx) {
+      bSCtx.shadowBlur = 5;
+      bSCtx.shadowColor = "#39FF14";
+      bSCtx.fillStyle = "#39FF14";
+      bSCtx.fillRect(BULLET_PAD, BULLET_PAD, 4, 10);
+      bSCtx.shadowBlur = 0;
+    }
 
     const handleMouseMove = (e: MouseEvent) => {
       if (stateRef.current !== "playing") return;
@@ -312,9 +353,33 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
       }
     };
 
+    const spawnKillFeedback = (x: number, y: number) => {
+      flashRef.current = 0.22;
+      for (let i = 0; i < floatingTextsRef.current.length; i++) {
+        const t = floatingTextsRef.current[i];
+        if (!t.active) {
+          t.active = true;
+          t.x = x;
+          t.y = y;
+          t.alpha = 1;
+          break;
+        }
+      }
+      killCountRef.current++;
+      if (killCountRef.current % 10 === 0) {
+        waveRef.current++;
+        waveTimerRef.current = 90;
+      }
+    };
+
     const loop = (now: number) => {
+      if (!isCanvasVisible || !isTabActive) return;
       if (stateRef.current !== "playing" && now - lastTime < FRAME_MS_IDLE) {
-        animationFrameId = requestAnimationFrame(loop);
+        const remaining = FRAME_MS_IDLE - (now - lastTime);
+        idleTimeoutId = setTimeout(() => {
+          idleTimeoutId = null;
+          animationFrameId = requestAnimationFrame(loop);
+        }, remaining);
         return;
       }
       lastTime = now;
@@ -394,20 +459,29 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
       }
 
       if (stateRef.current === "waiting") {
-        ctx.fillStyle = "#00F0FF";
-        ctx.shadowColor = "#00F0FF";
-        ctx.shadowBlur = 10;
-        ctx.font = 'bold 16px "Pixelify Sans", "font-pixel", sans-serif';
-        ctx.textAlign = "center";
-        ctx.fillText(
-          "PRESS START TO BEGIN",
-          canvas.width / 2,
-          canvas.height / 2,
-        );
-        ctx.shadowBlur = 0;
+        const bobY = Math.sin(frameRef.current * 0.05) * 4;
+        const showCoin = Math.floor(frameRef.current / 18) % 2 === 0;
         player.x = canvas.width / 2 - 12;
-        player.y = canvas.height - 40;
-        drawPlayer(ctx, player.x, player.y);
+        player.y = canvas.height - 50 + bobY;
+        ctx.drawImage(
+          playerSprite,
+          player.x - PLAYER_PAD,
+          player.y - PLAYER_PAD,
+        );
+        ctx.textAlign = "center";
+        if (showCoin) {
+          ctx.fillStyle = "#00F0FF";
+          ctx.shadowColor = "#00F0FF";
+          ctx.shadowBlur = 10;
+          ctx.font = 'bold 14px "Pixelify Sans", monospace';
+          ctx.fillText("INSERT COIN", canvas.width / 2, canvas.height / 2 - 4);
+        } else {
+          ctx.fillStyle = "rgba(255,255,255,0.3)";
+          ctx.shadowBlur = 0;
+          ctx.font = '11px "Pixelify Sans", monospace';
+          ctx.fillText("PLAYER 1", canvas.width / 2, canvas.height / 2 - 4);
+        }
+        ctx.shadowBlur = 0;
       } else if (stateRef.current === "playing") {
         const currentScore = scoreRef.current;
         const speedMultiplier = isMobile ? 0.6 : 1;
@@ -477,19 +551,34 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
           }
         }
 
-        drawPlayer(ctx, player.x, player.y);
+        if (frameRef.current % 2 === 0) {
+          for (let i = 0; i < particlePool.current.length; i++) {
+            const p = particlePool.current[i];
+            if (!p.active) {
+              p.active = true;
+              p.x = player.x + 8 + Math.random() * 8;
+              p.y = player.y + 22;
+              p.vx = (Math.random() - 0.5) * 0.8;
+              p.vy = 1.5 + Math.random() * 1.5;
+              p.life = 0.45;
+              p.color = Math.random() > 0.4 ? "#FF6600" : "#FF003C";
+              break;
+            }
+          }
+        }
+        ctx.drawImage(
+          playerSprite,
+          player.x - PLAYER_PAD,
+          player.y - PLAYER_PAD,
+        );
 
-        ctx.fillStyle = "#39FF14";
-        ctx.shadowColor = "#39FF14";
-        ctx.shadowBlur = 5;
         for (let i = 0; i < bulletPool.current.length; i++) {
           const b = bulletPool.current[i];
           if (!b.active) continue;
           b.y -= b.speed * (isMobile ? 0.8 : 1);
-          ctx.fillRect(b.x, b.y, b.w, b.h);
+          ctx.drawImage(bulletSprite, b.x - BULLET_PAD, b.y - BULLET_PAD);
           if (b.y < 0) b.active = false;
         }
-        ctx.shadowBlur = 0;
 
         for (let i = 0; i < enemyPool.current.length; i++) {
           const e = enemyPool.current[i];
@@ -552,6 +641,7 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
                     ? "#9D4EDD"
                     : "#FF003C";
               spawnParticles(e.x + 14, e.y + 14, particleColor);
+              spawnKillFeedback(e.x + 14, e.y + 14);
               e.active = false;
               b.active = false;
               scoreRef.current += 10;
@@ -578,25 +668,98 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
         ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
 
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = '12px "Pixelify Sans", "font-pixel", sans-serif';
-        ctx.textAlign = "left";
-        ctx.fillText(`SCORE: ${scoreRef.current}`, 10, 20);
-      } else if (stateRef.current === "gameover") {
-        ctx.fillStyle = "#FF003C";
-        ctx.shadowColor = "#FF003C";
-        ctx.shadowBlur = 15;
-        ctx.font = 'bold 24px "Pixelify Sans", "font-pixel", sans-serif';
+        if (flashRef.current > 0) {
+          ctx.fillStyle = `rgba(255,255,255,${flashRef.current * 0.15})`;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          flashRef.current = Math.max(0, flashRef.current - 0.05);
+        }
+
+        ctx.font = '10px "Pixelify Sans", monospace';
         ctx.textAlign = "center";
-        ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 10);
-        ctx.fillStyle = "#FFFFFF";
-        ctx.shadowBlur = 5;
-        ctx.font = 'bold 14px "Pixelify Sans", "font-pixel", sans-serif';
+        for (let i = 0; i < floatingTextsRef.current.length; i++) {
+          const t = floatingTextsRef.current[i];
+          if (!t.active) continue;
+          t.y -= 0.8;
+          t.alpha -= 0.025;
+          ctx.globalAlpha = t.alpha;
+          ctx.fillStyle = "#00F0FF";
+          ctx.shadowColor = "#00F0FF";
+          ctx.shadowBlur = 6;
+          ctx.fillText("+10", t.x, t.y);
+          if (t.alpha <= 0) t.active = false;
+        }
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+
+        if (waveTimerRef.current > 0) {
+          const wa =
+            waveTimerRef.current > 70
+              ? (90 - waveTimerRef.current) / 20
+              : waveTimerRef.current < 20
+                ? waveTimerRef.current / 20
+                : 1;
+          ctx.globalAlpha = wa;
+          ctx.fillStyle = "#9D4EDD";
+          ctx.shadowColor = "#9D4EDD";
+          ctx.shadowBlur = 22;
+          ctx.font = 'bold 20px "Pixelify Sans", monospace';
+          ctx.textAlign = "center";
+          ctx.fillText(
+            `WAVE ${waveRef.current}`,
+            canvas.width / 2,
+            canvas.height / 2,
+          );
+          ctx.shadowBlur = 0;
+          ctx.globalAlpha = 1;
+          waveTimerRef.current--;
+        }
+
+        ctx.font = '14px "Pixelify Sans", monospace';
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#00F0FF";
+        ctx.shadowColor = "#00F0FF";
+        ctx.shadowBlur = 8;
         ctx.fillText(
-          `FINAL SCORE: ${scoreRef.current}`,
-          canvas.width / 2,
-          canvas.height / 2 + 20,
+          scoreRef.current.toString().padStart(6, "0"),
+          canvas.width - 20,
+          18,
         );
+        ctx.shadowBlur = 0;
+      } else if (stateRef.current === "gameover") {
+        const blinking = Math.floor(frameRef.current / 10) % 2 === 0;
+        ctx.textAlign = "center";
+        if (blinking) {
+          ctx.fillStyle = "#FF003C";
+          ctx.shadowColor = "#FF003C";
+          ctx.shadowBlur = 18;
+          ctx.font = 'bold 24px "Pixelify Sans", monospace';
+          ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 22);
+          ctx.shadowBlur = 0;
+        }
+        const score = scoreRef.current;
+        const rank =
+          score >= 300 ? "S" : score >= 150 ? "A" : score >= 60 ? "B" : "C";
+        const rankColor =
+          score >= 300
+            ? "#FFD700"
+            : score >= 150
+              ? "#9D4EDD"
+              : score >= 60
+                ? "#00F0FF"
+                : "#666666";
+        ctx.fillStyle = "rgba(255,255,255,0.6)";
+        ctx.shadowBlur = 0;
+        ctx.font = '12px "Pixelify Sans", monospace';
+        ctx.fillText(
+          `SCORE  ${score.toString().padStart(6, "0")}`,
+          canvas.width / 2,
+          canvas.height / 2 + 4,
+        );
+        ctx.fillStyle = rankColor;
+        ctx.shadowColor = rankColor;
+        ctx.shadowBlur = 14;
+        ctx.font = 'bold 18px "Pixelify Sans", monospace';
+        ctx.fillText(`RANK  ${rank}`, canvas.width / 2, canvas.height / 2 + 26);
         ctx.shadowBlur = 0;
       }
 
@@ -604,18 +767,52 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
       animationFrameId = requestAnimationFrame(loop);
     };
 
+    const resumeLoop = () => {
+      if (idleTimeoutId !== null) {
+        clearTimeout(idleTimeoutId);
+        idleTimeoutId = null;
+      }
+      cancelAnimationFrame(animationFrameId);
+      lastTime = performance.now();
+      animationFrameId = requestAnimationFrame(loop);
+    };
+
+    const handleVisibilityChange = () => {
+      isTabActive = !document.hidden;
+      if (isCanvasVisible && isTabActive) resumeLoop();
+    };
+
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        isCanvasVisible = entries[0].isIntersecting;
+        if (isCanvasVisible && isTabActive) resumeLoop();
+      },
+      { threshold: 0 },
+    );
+    intersectionObserver.observe(canvas);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     animationFrameId = requestAnimationFrame(loop);
 
     return () => {
+      if (idleTimeoutId !== null) clearTimeout(idleTimeoutId);
       cancelAnimationFrame(animationFrameId);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      intersectionObserver.disconnect();
     };
   }, [triggerReset, onStateChange, onUpdateScore]);
 
   useEffect(() => {
     scoreRef.current = 0;
+    flashRef.current = 0;
+    waveRef.current = 1;
+    waveTimerRef.current = 0;
+    killCountRef.current = 0;
+    for (let i = 0; i < floatingTextsRef.current.length; i++)
+      floatingTextsRef.current[i].active = false;
     for (let i = 0; i < bulletPool.current.length; i++)
       bulletPool.current[i].active = false;
     for (let i = 0; i < enemyPool.current.length; i++)
@@ -625,10 +822,60 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
   }, [triggerReset]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="w-full border border-brand-main/30 rounded cursor-crosshair bg-black/60 shadow-[0_0_15px_rgba(0,240,255,0.05)] block touch-none"
-      style={{ minHeight: "200px" }}
-    />
+    <div className="relative w-full">
+      <div
+        className="relative w-full bg-[#020104] overflow-hidden"
+        style={{
+          borderRadius: "3% / 5%",
+          boxShadow: [
+            "0 0 35px 6px rgba(138,43,226,0.12)",
+            "0 0 70px 16px rgba(0,240,255,0.05)",
+            "inset 0 0 0 1px rgba(138,43,226,0.1)",
+          ].join(", "),
+        }}
+      >
+        <div
+          className="pointer-events-none absolute inset-0 z-20"
+          style={{
+            borderRadius: "inherit",
+            boxShadow: "inset 0 0 80px 22px rgba(0,0,0,0.92)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-20 mix-blend-screen"
+          style={{
+            background:
+              "radial-gradient(ellipse 55% 28% at 50% 3%, rgba(255,255,255,0.07) 0%, transparent 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{
+            opacity: 0.13,
+            backgroundImage:
+              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.9) 2px, rgba(0,0,0,0.9) 3px)",
+            backgroundSize: "100% 3px",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-10 mix-blend-screen"
+          style={{
+            opacity: 0.09,
+            backgroundImage:
+              "repeating-linear-gradient(90deg, rgba(255,60,60,0.5) 0px, transparent 1px, transparent 2px, rgba(60,255,60,0.4) 2px, transparent 3px, transparent 4px)",
+            backgroundSize: "3px 100%",
+          }}
+        />
+        <canvas
+          ref={canvasRef}
+          className="w-full block touch-none cursor-crosshair relative z-0"
+          style={{
+            imageRendering: "pixelated",
+            transform: "scale(1.018)",
+            transformOrigin: "center center",
+          }}
+        />
+      </div>
+    </div>
   );
 };

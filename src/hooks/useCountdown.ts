@@ -10,10 +10,8 @@ export interface TimeLeft {
   hasEnded: boolean;
 }
 
-export const useCountdown = (targetDate: Date = EVENT_START_DATE) => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  const calculate = useCallback(() => {
+export const useCountdown = (targetDate: Date = EVENT_START_DATE): TimeLeft => {
+  const calculate = useCallback((): TimeLeft => {
     const difference = targetDate.getTime() - new Date().getTime();
 
     if (difference <= 0) {
@@ -29,17 +27,12 @@ export const useCountdown = (targetDate: Date = EVENT_START_DATE) => {
     };
   }, [targetDate]);
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculate());
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculate);
 
   useEffect(() => {
-    setIsMounted(true);
-
-    const interval = setInterval(() => {
-      setTimeLeft(calculate());
-    }, 1000);
-
+    const interval = setInterval(() => setTimeLeft(calculate()), 1000);
     return () => clearInterval(interval);
   }, [calculate]);
 
-  return { ...timeLeft, isMounted };
+  return timeLeft;
 };

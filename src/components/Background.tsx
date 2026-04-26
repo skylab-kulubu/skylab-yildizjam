@@ -292,7 +292,6 @@ export default function Background({
 
     const planetGradCache = new Map<Planet, CanvasGradient>();
     const nebulaGradCache = new Map<Nebula, CanvasGradient>();
-    const galaxyGradCache = new Map<Galaxy, CanvasGradient>();
 
     const updateScroll = () => {
       scrollYRef.current = window.scrollY;
@@ -315,7 +314,6 @@ export default function Background({
         lastBuildWidthRef.current = w;
         planetGradCache.clear();
         nebulaGradCache.clear();
-        galaxyGradCache.clear();
         buildScene(w, h, clientSeed);
       }
     };
@@ -417,13 +415,9 @@ export default function Background({
         bCtx.rotate(g.angle + t * 0.015);
         bCtx.scale(1, 0.35);
 
-        let coreGrad = galaxyGradCache.get(g);
-        if (!coreGrad) {
-          coreGrad = bCtx.createRadialGradient(0, 0, 0, 0, 0, v_radius * 0.4);
-          coreGrad.addColorStop(0, g.coreColor);
-          coreGrad.addColorStop(1, "transparent");
-          galaxyGradCache.set(g, coreGrad);
-        }
+        const coreGrad = bCtx.createRadialGradient(0, 0, 0, 0, 0, v_radius * 0.4);
+        coreGrad.addColorStop(0, g.coreColor);
+        coreGrad.addColorStop(1, "transparent");
 
         bCtx.fillStyle = coreGrad;
         bCtx.beginPath();
@@ -571,10 +565,21 @@ export default function Background({
       rafRef.current = requestAnimationFrame(render);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafRef.current);
+      } else {
+        lastTimeRef.current = performance.now();
+        rafRef.current = requestAnimationFrame(render);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     rafRef.current = requestAnimationFrame(render);
     return () => {
       alive = false;
       window.removeEventListener("scroll", updateScroll);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(rafRef.current);
       resizeObserver.disconnect();
     };

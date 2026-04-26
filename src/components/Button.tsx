@@ -46,7 +46,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={`group relative inline-flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 select-none min-w-55 ${className}`}
+        className={`group relative inline-flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 select-none w-full sm:w-auto ${className}`}
         style={style}
         {...props}
       >
@@ -138,7 +138,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           }}
         />
 
-        <div className="relative z-40 py-4 px-10 flex items-center justify-center gap-4 text-white">
+        <div className="relative z-40 py-3 px-4 sm:py-4 sm:px-10 flex items-center justify-center gap-2 sm:gap-4 text-white">
           {children}
         </div>
       </button>

@@ -15,6 +15,6 @@ export const fadeScale: Variants = {
   show: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: "backOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };

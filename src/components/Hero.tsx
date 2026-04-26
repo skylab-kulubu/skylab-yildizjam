@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative z-10 w-full pt-28 sm:pt-36 lg:pt-52 mb-16 sm:mb-20 lg:mb-24 overflow-hidden"
+      className="relative z-10 w-full pt-28 sm:pt-36 lg:pt-52 mb-6 sm:mb-8 lg:mb-10 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
         <motion.div
@@ -24,10 +24,10 @@ export default function Hero() {
           <div className="space-y-4 sm:space-y-6 w-full flex flex-col items-center lg:items-start">
             <motion.div
               variants={fadeUp}
-              className="inline-block px-3 sm:px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md"
+              className="inline-flex items-center justify-center px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md"
             >
-              <span className="font-pixel text-[clamp(7px,2vw,11px)] leading-none tracking-[0.2em] text-slate-300 uppercase block relative -top-px">
-                [ SKY LAB BİLGİSAYAR BİLİMLERİ KULÜBÜ&apos;NDEN ]
+              <span className="font-pixel text-[clamp(10px,2.5vw,11px)] leading-none tracking-[0.2em] text-slate-300 uppercase block">
+                [ SKY LAB BİLGİSAYAR BİLİMLERİ KULÜBÜ'NDEN ]
               </span>
             </motion.div>
 
@@ -52,44 +52,47 @@ export default function Hero() {
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto mt-2"
+            className="flex flex-col items-center lg:items-start w-full sm:w-fit mt-2 gap-3"
           >
-            <Button
-              glowColor="var(--color-brand-action)"
-              cornerColor="var(--color-brand-action)"
-              onClick={() =>
-                window.open(
-                  "https://skyl.app/yildiz-jam-katilimci-formu",
-                  "_blank",
-                )
-              }
-              className="w-full sm:w-auto sm:min-w-55!"
-            >
-              <div className="flex items-center justify-center gap-3 text-brand-action">
-                <ShieldCheck className="w-4 h-4" />
-                <span className="font-display font-bold text-[10px] sm:text-[12px] tracking-[0.2em]">
-                  ZİRVE KAYIT
-                </span>
-              </div>
-            </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full">
+              <Button
+                glowColor="var(--color-brand-action)"
+                cornerColor="var(--color-brand-action)"
+                onClick={() =>
+                  window.open(
+                    "https://skyl.app/yildiz-jam-katilimci-formu",
+                    "_blank",
+                  )
+                }
+                className="flex-1 w-full sm:min-w-0!"
+              >
+                <div className="flex items-center justify-center gap-3 text-brand-action whitespace-nowrap">
+                  <ShieldCheck className="w-4 h-4 shrink-0" />
+                  <span className="font-display font-bold text-[10px] sm:text-[12px] tracking-[0.2em] uppercase">
+                    ZİRVE KAYIT
+                  </span>
+                </div>
+              </Button>
 
-            <Button
-              glowColor="var(--color-brand-glow)"
-              onClick={() =>
-                window.open(
-                  "https://skyl.app/yildiz-jam-yarisma-basvuru",
-                  "_blank",
-                )
-              }
-              className="w-full sm:w-auto sm:min-w-55!"
-            >
-              <div className="flex items-center justify-center gap-3 text-brand-glow">
-                <Crosshair className="w-4 h-4" />
-                <span className="font-display font-bold text-[10px] sm:text-[12px] tracking-[0.2em]">
-                  YARIŞMA KAYIT
-                </span>
-              </div>
-            </Button>
+              <Button
+                glowColor="var(--color-brand-glow)"
+                cornerColor="var(--color-brand-glow)"
+                onClick={() =>
+                  window.open(
+                    "https://skyl.app/yildiz-jam-yarisma-basvuru",
+                    "_blank",
+                  )
+                }
+                className="flex-1 w-full sm:min-w-0!"
+              >
+                <div className="flex items-center justify-center gap-3 text-brand-glow whitespace-nowrap">
+                  <Crosshair className="w-4 h-4 shrink-0" />
+                  <span className="font-display font-bold text-[10px] sm:text-[12px] tracking-[0.2em] uppercase">
+                    YARIŞMA KAYIT
+                  </span>
+                </div>
+              </Button>
+            </div>
           </motion.div>
         </motion.div>
 

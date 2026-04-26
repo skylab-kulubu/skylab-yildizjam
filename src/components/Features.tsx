@@ -56,7 +56,7 @@ export default function Features() {
       color="var(--color-brand-glow)"
       showBar={true}
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full">
         {PERKS.map((perk, index) => (
           <motion.div key={index} variants={fadeScale} className="group">
             <Card
@@ -66,7 +66,7 @@ export default function Features() {
               glowColor={perk.color}
               className="h-full overflow-visible"
             >
-              <div className="p-8 flex flex-col items-center text-center gap-5 h-full relative">
+              <div className="p-5 sm:p-8 flex flex-col items-center text-center gap-5 h-full relative">
                 <div className="absolute top-0 right-0 p-3 opacity-20 font-pixel text-[10px]">
                   {perk.lvl}
                 </div>
@@ -87,7 +87,7 @@ export default function Features() {
 
                 <div className="space-y-2">
                   <h3
-                    className="font-display font-bold text-[16px] tracking-widest uppercase"
+                    className="font-display font-bold text-base sm:text-lg tracking-widest uppercase"
                     style={{ color: perk.color }}
                   >
                     {perk.title}

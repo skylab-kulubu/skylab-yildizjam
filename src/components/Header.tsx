@@ -139,7 +139,7 @@ TimerSegment.displayName = "TimerSegment";
 
 const XpBars = memo(() => (
   <div className="flex items-center gap-1.5">
-    <span className="font-pixel text-[8px] text-brand-main pt-0.5">XP</span>
+    <span className="font-pixel text-[10px] text-brand-main pt-0.5">XP</span>
     <div className="flex gap-0.5 bg-black/60 p-0.5 rounded-sm border border-white/10 shrink-0">
       {XP_BARS.map((i) => (
         <div
@@ -183,7 +183,7 @@ StatWidget.displayName = "StatWidget";
 const MobileStat = memo(() => (
   <div className="xl:hidden flex flex-col items-center justify-center w-12 shrink-0 select-none">
     <div className="flex items-center gap-1 mb-0.5">
-      <span className="font-pixel text-[8px] text-brand-glow/80 leading-none">
+      <span className="font-pixel text-[10px] text-brand-glow/80 leading-none">
         LVL
       </span>
       <span className="font-display text-[13px] text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.3)] leading-none pt-0.5">
@@ -292,13 +292,11 @@ const Logo = memo(({ isScrolled }: { isScrolled: boolean }) => (
   <Link
     href="/"
     className="relative group cursor-pointer z-50 flex items-center justify-center focus:outline-none pointer-events-auto"
-    aria-label="Ana Sayfaya Dön"
+    aria-label="YILDIZJAM"
   >
     <div
       className={`relative flex items-center justify-center rounded-full overflow-visible
-        transition-[width,height] duration-500 ease-in-out
-        shadow-[0_0_20px_var(--color-brand-main)]/10
-        hover:shadow-[0_0_35px_var(--color-brand-main)]/30
+        transition-all duration-500 ease-out
         ${isScrolled ? "w-16 h-16" : "w-24 h-24"}`}
     >
       <div
@@ -306,12 +304,16 @@ const Logo = memo(({ isScrolled }: { isScrolled: boolean }) => (
           transition-colors duration-500
           ${isScrolled ? "bg-[rgba(6,4,10,0.95)]" : "bg-[rgba(138,43,226,0.12)]"}`}
       />
+
       <div className="absolute inset-0.75 rounded-full bg-[radial-gradient(circle,var(--color-brand-glow)_0%,transparent_70%)] opacity-20 z-10 pointer-events-none" />
-      <div className="absolute inset-0.75 rounded-full bg-[radial-gradient(circle,var(--color-brand-glow)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-700 z-10 pointer-events-none" />
+      <div className="absolute inset-0.75 rounded-full bg-[radial-gradient(circle,var(--color-brand-glow)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500 z-10 pointer-events-none" />
+
       <div
-        className="absolute top-1/2 left-1/2 w-[125%] h-[125%] -translate-x-1/2 -translate-y-1/2 z-20
-          opacity-60 group-hover:opacity-100 transition-opacity duration-700
-          group-hover:drop-shadow-[0_0_12px_var(--color-brand-main)] pointer-events-none"
+        className="absolute top-1/2 left-1/2 w-[125%] h-[125%] z-20 pointer-events-none
+    -translate-x-1/2 -translate-y-1/2 
+    opacity-70 group-hover:opacity-100 
+    transition-all duration-500 ease-out
+    group-hover:drop-shadow-[0_0_16px_var(--color-brand-main)]"
         style={{
           backgroundColor: "var(--color-brand-main)",
           WebkitMaskImage: "url('/img/pixelframe.svg')",
@@ -322,10 +324,12 @@ const Logo = memo(({ isScrolled }: { isScrolled: boolean }) => (
           WebkitMaskPosition: "center",
         }}
       />
+
       <div
         className="relative w-[75%] h-[75%] z-30
-          transition-transform duration-700 ease-out
-          group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_var(--color-brand-main)]"
+          scale-100 group-hover:scale-110 
+          transition-all duration-500 ease-out
+          group-hover:drop-shadow-[0_0_20px_var(--color-brand-main)]"
         style={{ willChange: "transform" }}
       >
         <Image
@@ -334,12 +338,13 @@ const Logo = memo(({ isScrolled }: { isScrolled: boolean }) => (
           fill
           priority
           className="object-contain"
-          sizes="(max-width: 96px) 100vw"
+          sizes="96px"
         />
       </div>
     </div>
   </Link>
 ));
+
 Logo.displayName = "Logo";
 
 export default function Header() {
