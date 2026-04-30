@@ -203,8 +203,11 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             xmlns="http://www.w3.org/2000/svg"
           >
             <g
-              fill={cornerColor}
-              style={{ filter: `drop-shadow(0 0 4px ${cornerColor})` }}
+              style={{
+                fill: cornerColor,
+                filter: `drop-shadow(0 0 4px ${cornerColor})`,
+                transition: "fill 0.5s ease-out, filter 0.5s ease-out",
+              }}
             >
               <rect x={3 * p} y={0} width={5 * p} height={p} />
               <rect x={2 * p} y={p} width={p} height={p} />
@@ -215,7 +218,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         ))}
 
         <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-[30%] group-hover:w-[60%] transition-all duration-700 ease-out opacity-40 group-hover:opacity-100 z-30"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-[30%] group-hover:w-[60%] transition-[width,opacity,filter] duration-700 ease-out opacity-40 group-hover:opacity-100 z-30"
           style={{
             background: `linear-gradient(90deg, transparent, ${glowColor}, transparent)`,
             filter: `drop-shadow(0 0 6px ${glowColor})`,

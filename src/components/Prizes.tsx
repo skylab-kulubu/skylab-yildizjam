@@ -44,7 +44,7 @@ export default function Prizes() {
                     İkinci
                   </span>
                   <h3 className="font-display font-black text-2xl sm:text-3xl text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                    20.000TL
+                    10.000TL
                   </h3>
                 </div>
               </div>
@@ -76,7 +76,7 @@ export default function Prizes() {
                     Birinci
                   </span>
                   <h3 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
-                    30.000TL
+                    15.000TL
                   </h3>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function Prizes() {
                     Üçüncü
                   </span>
                   <h3 className="font-display font-black text-2xl sm:text-3xl text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                    10.000TL
+                    5.000TL
                   </h3>
                 </div>
               </div>

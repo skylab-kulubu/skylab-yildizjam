@@ -25,7 +25,7 @@ export default function Faq() {
             <Card
               noPadding
               variant="solid"
-              className="bg-plum/40 border-white/5 transition-all duration-300 group"
+              className="bg-plum/40 border-white/5 transition-colors duration-300 group"
               cornerColor={
                 openFaq === item.id
                   ? "var(--color-brand-glow)"
@@ -42,7 +42,7 @@ export default function Faq() {
                 onClick={() => setOpenFaq(openFaq === item.id ? null : item.id)}
               >
                 <span
-                  className={`font-tech text-sm transition-colors group-hover:text-white flex-1 min-w-0 wrap-break-word ${openFaq === item.id ? "text-white" : "text-slate-300"}`}
+                  className={`font-tech text-sm transition-colors group-hover:text-white flex-1 min-w-0 break-words ${openFaq === item.id ? "text-white" : "text-slate-300"}`}
                 >
                   <span
                     className={`font-pixel mr-2 transition-colors group-hover:text-brand-glow ${openFaq === item.id ? "text-brand-glow" : "text-slate-600"}`}
