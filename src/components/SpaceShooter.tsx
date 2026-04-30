@@ -126,21 +126,30 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
       }
       return;
     }
-    if (!audioInitRef.current) {
+    if (!audioInitRef.current || !audioRef.current) {
       const audio = new Audio("/yildizjam.webm");
       audio.loop = true;
       audio.volume = 0.5;
+      // Fallback: loop=true bazen webm'de tutarsız çalışır
+      audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        audio.play().catch((e) => {
+          if (e.name !== "AbortError") console.warn(e);
+        });
+      });
       audioRef.current = audio;
       audioInitRef.current = true;
     }
-    const audio = audioRef.current!;
+    const audio = audioRef.current;
     if ("mediaSession" in navigator) {
       navigator.mediaSession.setActionHandler("play", () => audio.play());
-      navigator.mediaSession.setActionHandler("pause", () => {});
+      navigator.mediaSession.setActionHandler("pause", () => audio.pause());
     }
-    audio.play().catch((e) => {
-      if (e.name !== "AbortError") console.warn(e);
-    });
+    if (audio.paused) {
+      audio.play().catch((e) => {
+        if (e.name !== "AbortError") console.warn(e);
+      });
+    }
   }, [gameState]);
 
   useEffect(() => {
@@ -151,6 +160,7 @@ export const SpaceShooter: React.FC<SpaceShooterProps> = ({
         audioRef.current.load();
         audioRef.current = null;
       }
+      audioInitRef.current = false;
     };
   }, []);
 

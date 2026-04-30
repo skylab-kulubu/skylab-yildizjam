@@ -13,7 +13,7 @@ const PERKS = [
     lvl: "LVL.1",
     desc: (
       <>
-        Toplam <span className="font-bold text-white">60.000 TL</span> ödül
+        Toplam <span className="font-bold text-white">30.000 TL</span> ödül
         havuzundan payını al, donanımını güçlendir.
       </>
     ),
