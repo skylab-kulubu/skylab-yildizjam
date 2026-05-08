@@ -17,6 +17,7 @@ type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   noPadding?: boolean;
   variant?: CardVariant;
   enableBlur?: boolean;
+  imageSlot?: React.ReactNode;
 };
 
 const toUnit = (v: string | number) => (typeof v === "number" ? `${v}px` : v);
@@ -64,6 +65,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       noPadding = false,
       variant = "default",
       enableBlur = false,
+      imageSlot,
       style,
       ...props
     },
@@ -153,6 +155,10 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             className="absolute inset-0 pointer-events-none"
             style={{ boxShadow: v.inner }}
           />
+
+          {imageSlot && (
+            <div className="absolute inset-0 overflow-hidden">{imageSlot}</div>
+          )}
         </div>
 
         <div className="absolute inset-0 pointer-events-none z-10">
@@ -199,7 +205,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             key={index}
             width={8 * p}
             height={8 * p}
-            className={`absolute pointer-events-none z-20 overflow-visible transition-colors duration-500 ease-out ${transformClass}`}
+            className={`absolute pointer-events-none z-30 overflow-visible transition-colors duration-500 ease-out ${transformClass}`}
             xmlns="http://www.w3.org/2000/svg"
           >
             <g

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Button from "./Button";
 import { motion } from "framer-motion";
-import { Terminal, Play, RotateCcw } from "lucide-react";
+import { Terminal, Play, Reload as RotateCcw } from "pixelarticons/react";
 import {
   FiFacebook,
   FiTwitter,

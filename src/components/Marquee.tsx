@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "pixelarticons/react";
 
 export default function Marquee() {
   const items = [...Array(12)];

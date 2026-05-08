@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X, ShieldCheck, Crosshair } from "lucide-react";
+import { ChevronDown, Menu, Cancel as X, Shield, Target as Crosshair } from "pixelarticons/react";
 import Button from "@/components/Button";
 import { useCountdown } from "@/hooks/useCountdown";
 
@@ -259,7 +259,7 @@ const RegisterDropdown = memo(() => {
               }}
               className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-brand-main/20 text-slate-300 hover:text-white transition-all duration-200 text-left group"
             >
-              <ShieldCheck className="w-4 h-4 text-brand-action group-hover:scale-110 transition-transform" />
+              <Shield className="w-4 h-4 text-brand-action group-hover:scale-110 transition-transform" />
               <span className="font-pixel text-[11px] tracking-widest uppercase pt-0.5 whitespace-nowrap">
                 ZİRVE
               </span>
@@ -664,7 +664,7 @@ export default function Header() {
                     className="w-full h-13 bg-linear-to-r from-brand-main/10 to-transparent hover:from-brand-main/20 shadow-inner group"
                   >
                     <div className="flex items-center justify-center gap-3 w-full">
-                      <ShieldCheck className="w-4 h-4 text-brand-action group-hover:scale-110 transition-transform" />
+                      <Shield className="w-4 h-4 text-brand-action group-hover:scale-110 transition-transform" />
                       <span className="font-display font-bold text-[11px] tracking-[0.25em] text-white pt-0.5">
                         ZİRVE KAYIT
                       </span>

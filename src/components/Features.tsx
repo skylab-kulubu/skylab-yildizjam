@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Gem, Users, Sparkles } from "lucide-react";
+import { DiamondGem as Gem, Users, Sparkles } from "pixelarticons/react";
 import Card from "@/components/Card";
 import { fadeScale } from "@/lib/animations";
 import PageSection from "./PageSection";
@@ -26,7 +26,7 @@ const PERKS = [
     desc: (
       <>
         AAA ve Indie sektöründen{" "}
-        <span className="font-bold text-white">ustalarla tanış</span>, party'ni
+        <span className="font-bold text-white">ustalarla tanış</span>, party&apos;ni
         kur ve network yeteneğini aç.
       </>
     ),

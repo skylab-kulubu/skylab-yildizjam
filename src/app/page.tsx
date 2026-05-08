@@ -6,6 +6,7 @@ import FAQ from "@/components/Faq";
 import Experts from "@/components/Experts";
 import Sponsors from "@/components/Sponsors";
 import Prizes from "@/components/Prizes";
+import Schedule from "@/components/Schedule";
 import Background from "@/components/Background";
 import Footer from "@/components/Footer";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <MarqueeSeparator />
       <Features />
       <Prizes />
+      <Schedule />
       <Experts />
       <Sponsors />
       <FAQ />

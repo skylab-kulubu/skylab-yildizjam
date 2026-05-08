@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail } from "lucide-react";
+import { Mail } from "pixelarticons/react";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import PageSection from "./PageSection";
@@ -42,7 +42,7 @@ export default function Faq() {
                 onClick={() => setOpenFaq(openFaq === item.id ? null : item.id)}
               >
                 <span
-                  className={`font-tech text-sm transition-colors group-hover:text-white flex-1 min-w-0 break-words ${openFaq === item.id ? "text-white" : "text-slate-300"}`}
+                  className={`font-tech text-sm transition-colors group-hover:text-white flex-1 min-w-0 wrap-break-word ${openFaq === item.id ? "text-white" : "text-slate-300"}`}
                 >
                   <span
                     className={`font-pixel mr-2 transition-colors group-hover:text-brand-glow ${openFaq === item.id ? "text-brand-glow" : "text-slate-600"}`}

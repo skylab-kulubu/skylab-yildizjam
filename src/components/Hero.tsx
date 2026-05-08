@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Crosshair } from "lucide-react";
+import { Shield, Target as Crosshair } from "pixelarticons/react";
 import Button from "./Button";
 import YildizJamLogo from "./YildizJamLogo";
 import CountdownTimer from "./CountdownTimer";
@@ -27,7 +27,7 @@ export default function Hero() {
               className="inline-flex items-center justify-center px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md"
             >
               <span className="font-pixel text-[clamp(10px,2.5vw,11px)] leading-none tracking-[0.2em] text-slate-300 uppercase block">
-                [ SKY LAB BİLGİSAYAR BİLİMLERİ KULÜBÜ'NDEN ]
+                [ SKY LAB BİLGİSAYAR BİLİMLERİ KULÜBÜ&apos;NDEN ]
               </span>
             </motion.div>
 
@@ -67,7 +67,7 @@ export default function Hero() {
                 className="flex-1 w-full sm:min-w-0!"
               >
                 <div className="flex items-center justify-center gap-3 text-brand-action whitespace-nowrap">
-                  <ShieldCheck className="w-4 h-4 shrink-0" />
+                  <Shield className="w-4 h-4 shrink-0" />
                   <span className="font-display font-bold text-[10px] sm:text-[12px] tracking-[0.2em] uppercase">
                     ZİRVE KAYIT
                   </span>
