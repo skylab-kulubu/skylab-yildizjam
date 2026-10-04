@@ -1,0 +1,65 @@
+name: Build image
+
+# main builds the sandbox image, the production branch the production one; each
+# then asks its Dokploy application to redeploy.
+on:
+  push:
+    branches: ["main", "production"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: env
+        run: |
+          if [ "${{ github.ref_name }}" = production ]; then
+            echo "tag=production" >> "$GITHUB_OUTPUT"
+            echo "api=https://api.yildizskylab.com" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=sandbox" >> "$GITHUB_OUTPUT"
+            echo "api=https://sandbox-api.yildizskylab.com" >> "$GITHUB_OUTPUT"
+          fi
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=${{ steps.env.outputs.tag }}
+            type=sha
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          build-args: API_BASE_URL=${{ steps.env.outputs.api }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Redeploy on Dokploy
+        env:
+          HOOK: ${{ steps.env.outputs.tag == 'production' && secrets.DOKPLOY_DEPLOY_HOOK || secrets.DOKPLOY_SANDBOX_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "No Dokploy hook for ${{ steps.env.outputs.tag }}; skipping"
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"

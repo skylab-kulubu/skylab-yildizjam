@@ -4,6 +4,7 @@ import { DiamondGem as Gem, Users, Sparkles } from "pixelarticons/react";
 import Card from "@/components/Card";
 import { fadeScale } from "@/lib/animations";
 import PageSection from "./PageSection";
+import { EditableRegion } from "inscribed";
 
 const PERKS = [
   {
@@ -50,8 +51,8 @@ export default function Features() {
   return (
     <PageSection
       id="features"
-      tag="CHOOSE_YOUR_PERKS"
-      title="NEDEN KATILMALISIN?"
+      tag={<EditableRegion scope="global" blockPath="neden.etiket" blockType="ShortText" defaultValue="CHOOSE_YOUR_PERKS" />}
+      title={<EditableRegion scope="global" blockPath="neden.baslik" blockType="ShortText" defaultValue="NEDEN KATILMALISIN?" />}
       variant="hero"
       color="var(--color-brand-glow)"
       showBar={true}

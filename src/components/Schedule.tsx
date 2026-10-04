@@ -6,6 +6,7 @@ import Card from "@/components/Card";
 import PageSection from "./PageSection";
 import { staggerContainer, fadeUp } from "@/lib/animations";
 import { SCHEDULE_MAY_8, ScheduleItem } from "@/lib/schedule";
+import { EditableRegion } from "inscribed";
 
 function parseMinutes(t: string): number {
   const [h, m] = t.trim().split(".").map(Number);
@@ -164,8 +165,8 @@ export default function Schedule() {
   return (
     <PageSection
       id="program"
-      tag="8 MAYIS"
-      title="ZİRVE AKIŞI"
+      tag={<EditableRegion scope="global" blockPath="program.etiket" blockType="ShortText" defaultValue="8 MAYIS" />}
+      title={<EditableRegion scope="global" blockPath="program.baslik" blockType="ShortText" defaultValue="ZİRVE AKIŞI" />}
       color="var(--color-brand-action)"
       showBar
     >

@@ -5,8 +5,8 @@ import { staggerContainer, fadeUp } from "@/lib/animations";
 
 interface PageSectionProps {
   id?: string;
-  tag: string;
-  title: string;
+  tag: React.ReactNode;
+  title: React.ReactNode;
   children: React.ReactNode;
   color?: string;
   className?: string;

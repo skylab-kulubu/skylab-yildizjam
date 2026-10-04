@@ -5,6 +5,7 @@ import Card from "@/components/Card";
 import { fadeScale, fadeUp, staggerContainer } from "@/lib/animations";
 import PageSection from "./PageSection";
 import { SPONSOR_CATEGORIES, SPONSORS_DATA } from "@/lib/sponsors";
+import { EditableRegion } from "inscribed";
 
 const SponsorRow = ({
   categoryId,
@@ -99,8 +100,8 @@ export default function Sponsors() {
   return (
     <PageSection
       id="sponsorlar"
-      tag="ALLIANCE_NETWORK"
-      title="SPONSORLAR"
+      tag={<EditableRegion scope="global" blockPath="sponsorlar.etiket" blockType="ShortText" defaultValue="ALLIANCE_NETWORK" />}
+      title={<EditableRegion scope="global" blockPath="sponsorlar.baslik" blockType="ShortText" defaultValue="SPONSORLAR" />}
       variant="section"
       showBar={true}
     >

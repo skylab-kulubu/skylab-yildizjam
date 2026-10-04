@@ -5,13 +5,14 @@ import Card from "@/components/Card";
 import { fadeUp } from "@/lib/animations";
 import PageSection from "./PageSection";
 import { TrophyVideo } from "./TrophyVideo";
+import { EditableRegion } from "inscribed";
 
 export default function Prizes() {
   return (
     <PageSection
       id="oduller"
-      tag="REWARDS_POOL"
-      title="ÖDÜL HAVUZU"
+      tag={<EditableRegion scope="global" blockPath="oduller.etiket" blockType="ShortText" defaultValue="REWARDS_POOL" />}
+      title={<EditableRegion scope="global" blockPath="oduller.baslik" blockType="ShortText" defaultValue="ÖDÜL HAVUZU" />}
       color="var(--color-brand-reward)"
       variant="section"
       showBar={true}

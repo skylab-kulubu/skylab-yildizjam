@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import { CmsPage } from "@/lib/cms";
 
 const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
@@ -100,7 +101,9 @@ export default function RootLayout({
       className={`${outfit.variable} ${jakarta.variable} ${pixelify.variable}`}
     >
       <body className="font-tech text-white antialiased">
-        <Providers>{children}</Providers>
+        <CmsPage>
+          <Providers>{children}</Providers>
+        </CmsPage>
       </body>
     </html>
   );
