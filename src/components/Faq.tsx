@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 import PageSection from "./PageSection";
 import { fadeUp } from "@/lib/animations";
 import { FAQ_DATA } from "@/lib/faq";
+import { EditableRegion } from "inscribed";
 
 export default function Faq() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
@@ -15,8 +16,8 @@ export default function Faq() {
   return (
     <PageSection
       id="sss"
-      tag="KNOWLEDGE_BASE"
-      title="SIKÇA SORULAN SORULAR"
+      tag={<EditableRegion scope="global" blockPath="sss.etiket" blockType="ShortText" defaultValue="KNOWLEDGE_BASE" />}
+      title={<EditableRegion scope="global" blockPath="sss.baslik" blockType="ShortText" defaultValue="SIKÇA SORULAN SORULAR" />}
       variant="section"
     >
       <div className="max-w-3xl mx-auto space-y-4 w-full">
