@@ -3,6 +3,7 @@ import { Outfit, Plus_Jakarta_Sans, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import { CmsPage } from "@/lib/cms";
+import { robotsFor } from "@/lib/search-index";
 
 const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
@@ -25,7 +26,7 @@ const pixelify = Pixelify_Sans({
   variable: "--font-pixel",
 });
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: {
     default: "YıldızJam 2026 | Oyun Geliştirme Zirvesi & Game Jam",
     template: "%s | YıldızJam 2026",
@@ -77,18 +78,19 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/img/yildizjam.png", sizes: "180x180", type: "image/png" }],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
 };
+
+// The live site is indexed with its photos kept out of image search; the sandbox not at all.
+export function generateMetadata(): Metadata {
+  const robots = robotsFor() as { index: boolean; follow: boolean; googleBot: object };
+  return {
+    ...metadata,
+    robots: {
+      ...robots,
+      googleBot: { ...robots.googleBot, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
+    },
+  };
+}
 
 export default function RootLayout({
   children,
