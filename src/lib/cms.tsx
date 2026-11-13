@@ -1,9 +1,9 @@
 import { unstable_rethrow } from "next/navigation";
-import { revalidateCmsSlug } from "inscribed/actions";
 import { createCmsPage } from "inscribed/page";
 import { withCmsAuth } from "@skylab-kulubu/inscribed-auth/server";
 import { YildizJamCmsProvider } from "@/components/cms/YildizJamCmsProvider";
 import { authOptions } from "./auth";
+import { refreshCmsContent } from "./cms-actions";
 import { cmsConfig } from "./cms-config";
 
 const auth = withCmsAuth(authOptions);
@@ -29,5 +29,5 @@ export const { CmsPage } = createCmsPage({
   // Only what the browser needs: who is signed in and the token for writes.
   sessionForClient: (session: { user?: unknown; accessToken?: string; error?: string } | null) =>
     session ? { user: session.user, accessToken: session.accessToken, error: session.error } : null,
-  onAfterSave: revalidateCmsSlug,
+  onAfterSave: refreshCmsContent,
 });
