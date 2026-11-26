@@ -1,0 +1,60 @@
+{
+  "kind": "forbidden",
+  "variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "random": [
+    "A",
+    "B",
+    "C"
+  ],
+  "text": {
+    "tr": {
+      "A": {
+        "code": "403",
+        "title": "Bu sayfa sana kapalı",
+        "description": "Bu sayfa CTF sorusu değil, uğraşarak açılmaz; yetkiyi ekip liderinden iste.",
+        "action": "Ana sayfaya dön"
+      },
+      "B": {
+        "code": "403",
+        "title": "Yetkin yok",
+        "description": "Bu sayfayı açma yetkisini ekip liderin verir; ona yaz.",
+        "action": "Ana sayfaya dön"
+      },
+      "C": {
+        "code": "403",
+        "title": "Anahtarın uymuyor",
+        "description": "Hesabın bu sayfayı açamıyor; yetkiyi ekip liderinden iste.",
+        "action": "Ana sayfaya dön"
+      }
+    },
+    "en": {
+      "A": {
+        "code": "403",
+        "title": "This page is closed to you",
+        "description": "This page is not a CTF challenge and will not open with effort; ask your team lead for access.",
+        "action": "Back to home"
+      },
+      "B": {
+        "code": "403",
+        "title": "No access",
+        "description": "Your team lead gives access to this page; write to them.",
+        "action": "Back to home"
+      },
+      "C": {
+        "code": "403",
+        "title": "Your key does not fit",
+        "description": "Your account cannot open this page; ask your team lead for access.",
+        "action": "Back to home"
+      }
+    }
+  },
+  "svg": {
+    "A": "<svg xmlns=\"http://www.w3.org/2000/svg\" data-slot=\"error-scene\" data-kind=\"forbidden\" data-variant=\"A\" viewBox=\"0 0 240 180\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"skylcn-scene block aspect-[4/3] h-auto w-full max-w-72\"><path d=\"M10 152H230\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><rect x=\"12\" y=\"22\" width=\"120\" height=\"104\" rx=\"5\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M12 38H132\" stroke-width=\"1.25\"></path><g transform=\"translate(22 23.79) scale(0.11)\" stroke-width=\"10.91\"><path d=\"M0 0L42 12V56C42 86 24 106 0 122C-24 106 -42 86 -42 56V12Z\" fill=\"var(--skylcn-scene-surface, #171717)\"></path><path stroke=\"var(--skylcn-scene-cool, #93c5fd)\" d=\"M0 14L30 23V56C30 78 18 94 0 107C-18 94 -30 78 -30 56V23Z\"></path><circle cx=\"0\" cy=\"52\" r=\"8\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke=\"none\"></circle><path d=\"M-3 60L-5 74H5L3 60Z\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke=\"none\"></path></g><text x=\"30\" y=\"32.5\" font-size=\"6.6\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" text-anchor=\"start\" font-weight=\"700\" letter-spacing=\".4\" stroke=\"none\">SKYDAYS CTF</text><path d=\"M120 22V6\"></path><g transform=\"translate(120 8)\"><g class=\"skylcn-scene-wave\"><g transform=\"translate(-120 -8)\"><path d=\"M120 7L136 11L120 15Z\" fill=\"var(--skylcn-scene-warm, #fbbf24)\" stroke=\"var(--skylcn-scene-warm, #fbbf24)\" stroke-width=\"1.25\"></path></g></g></g><text x=\"20\" y=\"50\" font-size=\"5.4\" fill=\"var(--skylcn-scene-faint, #525252)\" text-anchor=\"start\" stroke=\"none\">soru: bu sayfa</text><g class=\"skylcn-scene-c1\"><text x=\"20\" y=\"63\" font-size=\"6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"start\" stroke=\"none\">› flag{admin}</text><text x=\"124\" y=\"63\" font-size=\"7\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"end\" font-weight=\"700\" stroke=\"none\">×</text></g><g class=\"skylcn-scene-c2\"><text x=\"20\" y=\"75\" font-size=\"6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"start\" stroke=\"none\">› flag{1234}</text><text x=\"124\" y=\"75\" font-size=\"7\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"end\" font-weight=\"700\" stroke=\"none\">×</text></g><g class=\"skylcn-scene-c3\"><text x=\"20\" y=\"87\" font-size=\"6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"start\" stroke=\"none\">› flag{lütfen}</text><text x=\"124\" y=\"87\" font-size=\"7\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"end\" font-weight=\"700\" stroke=\"none\">×</text></g><g class=\"skylcn-scene-deny\"><rect x=\"20\" y=\"96\" width=\"104\" height=\"20\" rx=\"3\" stroke=\"var(--skylcn-scene-alert, #f87171)\" stroke-width=\"1.25\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><text x=\"72\" y=\"109\" font-size=\"6.2\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"middle\" font-weight=\"700\" stroke=\"none\">CTF sorusu değil</text></g><rect x=\"150\" y=\"40\" width=\"52\" height=\"112\" rx=\"2\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><rect x=\"157\" y=\"48\" width=\"38\" height=\"96\" rx=\"1.5\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></rect><text x=\"176\" y=\"62\" font-size=\"5.2\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"middle\" letter-spacing=\".5\" stroke=\"none\">BU SAYFA</text><g class=\"skylcn-scene-jiggle\"><g transform=\"translate(176 92) scale(0.9)\" stroke-width=\"2.22\"><path d=\"M-8 0V-6a8 8 0 0 1 16 0V0\"></path><rect x=\"-13\" y=\"0\" width=\"26\" height=\"20\" rx=\"3.5\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><circle cx=\"0\" cy=\"8\" r=\"2\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke=\"none\"></circle><path stroke-width=\"1.39\" d=\"M0 10v4\"></path></g></g><circle cx=\"194\" cy=\"104\" r=\"2\" stroke-width=\"1.25\"></circle><path d=\"M214 40v8\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></path><g transform=\"translate(214 48)\"><g class=\"skylcn-scene-sway\"><g transform=\"translate(-214 -48)\"><circle cx=\"214\" cy=\"54\" r=\"5\" stroke-width=\"1.25\"></circle><path d=\"M214 59v16M214 70h4M214 74h3\" stroke-width=\"1.25\"></path><rect x=\"204\" y=\"78\" width=\"20\" height=\"24\" rx=\"2\" stroke=\"var(--skylcn-scene-warm, #fbbf24)\" stroke-width=\"1.25\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><text x=\"214\" y=\"88\" font-size=\"4.6\" fill=\"var(--skylcn-scene-warm, #fbbf24)\" text-anchor=\"middle\" font-weight=\"700\" stroke=\"none\">ekip</text><text x=\"214\" y=\"96\" font-size=\"4.6\" fill=\"var(--skylcn-scene-warm, #fbbf24)\" text-anchor=\"middle\" font-weight=\"700\" stroke=\"none\">lideri</text></g></g></g></svg>\n",
+    "B": "<svg xmlns=\"http://www.w3.org/2000/svg\" data-slot=\"error-scene\" data-kind=\"forbidden\" data-variant=\"B\" viewBox=\"0 0 240 180\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"skylcn-scene block aspect-[4/3] h-auto w-full max-w-72\"><path d=\"M10 152H230\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><rect x=\"28\" y=\"40\" width=\"56\" height=\"112\" rx=\"2\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><rect x=\"35\" y=\"48\" width=\"42\" height=\"96\" rx=\"1.5\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></rect><g class=\"skylcn-scene-jiggle\"><g transform=\"translate(56 92) scale(0.9)\" stroke-width=\"2.22\"><path d=\"M-8 0V-6a8 8 0 0 1 16 0V0\"></path><rect x=\"-13\" y=\"0\" width=\"26\" height=\"20\" rx=\"3.5\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><circle cx=\"0\" cy=\"8\" r=\"2\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke=\"none\"></circle><path stroke-width=\"1.39\" d=\"M0 10v4\"></path></g></g><circle cx=\"72\" cy=\"104\" r=\"2\" stroke-width=\"1.25\"></circle><rect x=\"104\" y=\"28\" width=\"122\" height=\"98\" rx=\"6\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M104 44H226\" stroke-width=\"1.25\"></path><g transform=\"translate(116 36)\"><circle r=\"4\" stroke-width=\"1.25\"></circle><path d=\"M3 3l7 7M8 8l2-2M10 10l2-2\" stroke-width=\"1.25\"></path></g><text x=\"134\" y=\"39\" font-size=\"6\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" text-anchor=\"start\" font-weight=\"700\" stroke=\"none\">ekip lideri</text><rect x=\"138\" y=\"54\" width=\"80\" height=\"22\" rx=\"7\" stroke=\"var(--skylcn-scene-brand, #e0c8e5)\" stroke-width=\"1.25\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><text x=\"144\" y=\"63\" font-size=\"5.2\" fill=\"var(--skylcn-scene-brand, #e0c8e5)\" text-anchor=\"start\" stroke=\"none\">bu sayfaya</text><text x=\"144\" y=\"71\" font-size=\"5.2\" fill=\"var(--skylcn-scene-brand, #e0c8e5)\" text-anchor=\"start\" stroke=\"none\">yetki verir misin?</text><rect x=\"112\" y=\"86\" width=\"36\" height=\"16\" rx=\"7\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></rect><g class=\"skylcn-scene-sig1\"><circle cx=\"122\" cy=\"94\" r=\"1.9\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" stroke=\"none\"></circle></g><g class=\"skylcn-scene-sig2\"><circle cx=\"130\" cy=\"94\" r=\"1.9\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" stroke=\"none\"></circle></g><g class=\"skylcn-scene-sig3\"><circle cx=\"138\" cy=\"94\" r=\"1.9\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" stroke=\"none\"></circle></g><path d=\"M112 114H200\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></path><path stroke=\"var(--skylcn-scene-brand, #e0c8e5)\" d=\"M206 108l12 6-12 6 3-6z\" stroke-width=\"1.25\"></path></svg>\n",
+    "C": "<svg xmlns=\"http://www.w3.org/2000/svg\" data-slot=\"error-scene\" data-kind=\"forbidden\" data-variant=\"C\" viewBox=\"0 0 240 180\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"skylcn-scene block aspect-[4/3] h-auto w-full max-w-72\"><path class=\"skylcn-scene-key-pulse\" d=\"M120 22c20 8 40 11 56 11c0 63-18 97-56 123C82 130 64 96 64 33c16 0 36-3 56-11z\"></path><path d=\"M120 22c20 8 40 11 56 11c0 63-18 97-56 123C82 130 64 96 64 33c16 0 36-3 56-11z\" stroke=\"var(--skylcn-scene-cool, #93c5fd)\" stroke-width=\"1.875\" transform=\"translate(24 17.6) scale(0.8)\"></path><path d=\"M120 22c20 8 40 11 56 11c0 63-18 97-56 123C82 130 64 96 64 33c16 0 36-3 56-11z\" stroke=\"var(--skylcn-scene-cool, #93c5fd)\" stroke-width=\"2.08\" opacity=\"0.55\" transform=\"translate(48 35.2) scale(0.6)\"></path><g fill=\"var(--skylcn-scene-surface, #171717)\"><path d=\"M114.5 89 111 108h18l-3.5-19\"></path><circle cx=\"120\" cy=\"80\" r=\"12.5\"></circle></g><path d=\"M112.5 81a7.5 7.5 0 0 1 12-6M127.5 80a7.5 7.5 0 0 1-3 6M116 80a4 4 0 0 1 7-2.6\" stroke=\"var(--skylcn-scene-cool, #93c5fd)\" stroke-width=\"1.25\"></path><g class=\"skylcn-scene-key-deny\" stroke=\"var(--skylcn-scene-alert, #f87171)\"><circle cx=\"120\" cy=\"80\" r=\"12.5\"></circle><path d=\"M114.5 89 111 108h18l-3.5-19\"></path></g><g transform=\"translate(120 82)\"><g class=\"skylcn-scene-key\" stroke=\"var(--skylcn-scene-warm, #fbbf24)\"><path d=\"M0 0h27M3 0v5M8 0v4\"></path><circle cx=\"34\" cy=\"0\" r=\"7\"></circle><circle cx=\"34\" cy=\"0\" r=\"2.2\" stroke-width=\"1.25\"></circle></g></g></svg>\n"
+  }
+}

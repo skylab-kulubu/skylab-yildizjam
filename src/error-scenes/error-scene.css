@@ -1,0 +1,722 @@
+/*
+ * ErrorScene: the error pages' pictures, the scenes' rules alone. theme-base.css imports
+ * this file; an app without Tailwind or without skylcn-ui's theme (the Keycloak login theme,
+ * an event site) imports it by itself:
+ *
+ *   import '@skylab-kulubu/skylcn-ui/error-scene.css';
+ *
+ * Plain CSS. The colours come from skylcn-ui's tokens when the page has them (tokens.css) and
+ * fall back to the dark theme's values when it does not; an app without the tokens recolours a
+ * scene with its own rule setting --skylcn-scene-* on .skylcn-scene. The same scenes as markup
+ * alone, for a page that renders no React, are in dist/error-scenes: one SVG per drawing and
+ * index.json with the words.
+ *
+ * One line language for every kind (2-unit round lines, 1.25 for details) in theme colours,
+ * so the scenes follow light and dark with the rest of the page. A scene over a surface other
+ * than the page (a card) gets --skylcn-scene-backdrop from it; that fill only hides the lines
+ * behind a shape. Each part animates on its own class; reduced motion (system or
+ * data-motion="reduced") and data-still hold every part on its still frame, which is drawn to
+ * tell the story alone: the classes below only move a part away from it and back.
+ */
+@layer components {
+  .skylcn-scene {
+    --skylcn-scene-ink: var(--secondary-foreground, #e5e5e5);
+    --skylcn-scene-soft: var(--subtle-foreground, #8c8c8c);
+    --skylcn-scene-faint: var(--faint-foreground, #525252);
+    --skylcn-scene-brand: var(--primary, #e0c8e5);
+    --skylcn-scene-on-brand: var(--primary-foreground, #0a0a0a);
+    --skylcn-scene-warm: var(--warning, #fbbf24);
+    --skylcn-scene-cool: var(--info, #93c5fd);
+    --skylcn-scene-alert: var(--destructive, #f87171);
+    /* a parent on another surface (a light card) sets --skylcn-scene-backdrop */
+    --skylcn-scene-surface: var(--skylcn-scene-backdrop, var(--background, #171717));
+    /* fluid up to 18rem, 4:3; a class on the scene (max-w-56) sizes it otherwise */
+    display: block;
+    width: 100%;
+    max-width: 18rem;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    overflow: visible;
+    /* the scenes' words are screen and terminal text */
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  }
+  /* parts that turn or scale about their own middle */
+  .skylcn-scene .skylcn-scene-self {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  /* parts that turn or scale about their group's origin, which the drawing puts at the pivot */
+  .skylcn-scene :is(.skylcn-scene-key, .skylcn-scene-snip) {
+    transform-box: view-box;
+    transform-origin: 0 0;
+  }
+  /* the fake format's bar fills from its left end */
+  .skylcn-scene .skylcn-scene-format {
+    transform-box: fill-box;
+    transform-origin: left center;
+    transform: scaleX(0.37);
+  }
+  .skylcn-scene-tw {
+    animation: skylcn-scene-dim 3s ease-in-out infinite;
+  }
+  .skylcn-scene-blink {
+    animation: skylcn-scene-blink 1.1s steps(1) infinite;
+  }
+  .skylcn-scene-glow {
+    animation: skylcn-scene-glow 3.4s ease-in-out infinite;
+  }
+  .skylcn-scene-puff {
+    animation: skylcn-scene-puff 2.4s ease-out infinite both;
+  }
+  .skylcn-scene-drift {
+    animation: skylcn-scene-drift 2.7s ease-out infinite both;
+  }
+  .skylcn-scene-bob {
+    animation: skylcn-scene-bob 2.6s ease-in-out infinite;
+  }
+  .skylcn-scene-breathe {
+    animation: skylcn-scene-bob 4s ease-in-out infinite;
+  }
+  .skylcn-scene-spin {
+    animation: skylcn-scene-spin 6s linear infinite;
+  }
+  .skylcn-scene-sway {
+    animation: skylcn-scene-sway 3.4s ease-in-out infinite;
+  }
+  .skylcn-scene-wob {
+    animation: skylcn-scene-wob 4s ease-in-out infinite;
+  }
+  .skylcn-scene-drip {
+    animation: skylcn-scene-drip 1.4s ease-in infinite;
+  }
+  .skylcn-scene-jiggle {
+    animation: skylcn-scene-jiggle 4.4s ease-in-out infinite;
+  }
+  .skylcn-scene-sig1 {
+    animation: skylcn-scene-sig 2.4s steps(1) infinite;
+  }
+  .skylcn-scene-sig2 {
+    animation: skylcn-scene-sig 2.4s steps(1) 0.4s infinite;
+  }
+  .skylcn-scene-sig3 {
+    animation: skylcn-scene-sig 2.4s steps(1) 0.8s infinite;
+  }
+  .skylcn-scene-type {
+    animation: skylcn-scene-type 5s steps(1) infinite;
+  }
+  .skylcn-scene-fly {
+    animation: skylcn-scene-fly 4.2s ease-in infinite;
+  }
+  .skylcn-scene-slide {
+    animation: skylcn-scene-slide 4.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .skylcn-scene-fall {
+    animation: skylcn-scene-fall 3.6s cubic-bezier(0.5, 0, 0.8, 0.6) infinite;
+  }
+  .skylcn-scene-snip {
+    animation: skylcn-scene-snip 3.6s ease-in-out infinite;
+  }
+  .skylcn-scene-c1 {
+    animation: skylcn-scene-c1 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-c2 {
+    animation: skylcn-scene-c2 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-c3 {
+    animation: skylcn-scene-c3 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-c4 {
+    animation: skylcn-scene-c4 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-c5 {
+    animation: skylcn-scene-c5 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-deny {
+    animation: skylcn-scene-deny 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-wave {
+    animation: skylcn-scene-wave 2.2s ease-in-out infinite;
+  }
+  .skylcn-scene-key {
+    animation: skylcn-scene-key 4.2s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  }
+  .skylcn-scene-key-deny {
+    animation: skylcn-scene-key-deny 4.2s linear infinite;
+  }
+  .skylcn-scene-key-pulse {
+    animation: skylcn-scene-dim 4.2s ease-in-out infinite;
+  }
+  .skylcn-scene-count-after {
+    animation: skylcn-scene-num 4s steps(1) infinite;
+  }
+  .skylcn-scene-count-before {
+    animation: skylcn-scene-num-before 4s steps(1) infinite;
+  }
+  .skylcn-scene-shot {
+    animation: skylcn-scene-shot 1.6s linear infinite;
+  }
+  .skylcn-scene-hole {
+    animation: skylcn-scene-hole 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-ring {
+    animation: skylcn-scene-ring 6s linear infinite;
+  }
+  .skylcn-scene-plug {
+    animation: skylcn-scene-swing 3s ease-in-out infinite;
+  }
+  .skylcn-scene-zap {
+    animation: skylcn-scene-zap 3s steps(1) infinite;
+  }
+  .skylcn-scene-pause {
+    animation: skylcn-scene-pause 1.6s steps(1) infinite;
+  }
+  .skylcn-scene-shackle {
+    animation: skylcn-scene-shackle 4s cubic-bezier(0.5, 0, 0.2, 1) infinite;
+  }
+  .skylcn-scene-format {
+    animation: skylcn-scene-format 4.4s ease-out infinite;
+  }
+  .skylcn-scene-toggle-on {
+    animation: skylcn-scene-toggle-on 4.4s steps(1) infinite;
+  }
+  .skylcn-scene-toggle-knob {
+    animation: skylcn-scene-toggle-knob 4.4s ease-in-out infinite;
+  }
+  .skylcn-scene-toggle-cursor {
+    animation: skylcn-scene-toggle-cursor 4.4s ease-in-out infinite;
+  }
+  .skylcn-scene-flip-before {
+    animation: skylcn-scene-flip-before 4s steps(1) infinite;
+  }
+  .skylcn-scene-flip-after {
+    animation: skylcn-scene-flip-after 4s steps(1) infinite;
+  }
+  .skylcn-scene-stamp {
+    animation: skylcn-scene-stamp 4s cubic-bezier(0.3, 0, 0.2, 1) infinite;
+  }
+  .skylcn-scene-drop {
+    animation: skylcn-scene-drop 2.8s cubic-bezier(0.3, 0, 0.2, 1) infinite;
+  }
+  /* offsets, after the parts so they win over each shorthand's delay */
+  .skylcn-scene .skylcn-scene-d1 {
+    animation-delay: -0.9s;
+  }
+  .skylcn-scene .skylcn-scene-d2 {
+    animation-delay: -1.8s;
+  }
+  .skylcn-scene .skylcn-scene-lag1 {
+    animation-delay: -0.32s;
+  }
+  .skylcn-scene .skylcn-scene-lag2 {
+    animation-delay: -0.64s;
+  }
+  .skylcn-scene .skylcn-scene-lag3 {
+    animation-delay: -0.96s;
+  }
+  .skylcn-scene .skylcn-scene-lag4 {
+    animation-delay: -1.28s;
+  }
+
+  /* Still: every part on the frame it is drawn in */
+  @media (prefers-reduced-motion: reduce) {
+    .skylcn-scene * {
+      animation: none;
+    }
+  }
+  [data-motion='reduced'] .skylcn-scene *,
+  .skylcn-scene[data-still] * {
+    animation: none;
+  }
+
+  /*
+   * ErrorScenePage picks its drawing in the browser: a server-rendered page stays out of sight
+   * while it hydrates, so one that hydrates within 1.5 seconds shows its pick straight away.
+   * The hiding is the reveal animation's delay: past 1.5 seconds the first drawing shows (and
+   * the pick replaces it if hydration comes later), a page whose script never runs or fails to
+   * hydrate keeps it, and one that turns animations off altogether shows it at once; without
+   * script it shows straight away. It sits outside .skylcn-scene, so the reduced-motion rules
+   * above leave it alone.
+   */
+  @media (scripting: enabled) {
+    .skylcn-error-pending {
+      animation: skylcn-error-reveal 0s 1.5s both;
+    }
+  }
+}
+@keyframes skylcn-error-reveal {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
+}
+@keyframes skylcn-scene-dim {
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes skylcn-scene-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-glow {
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes skylcn-scene-puff {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-9px);
+  }
+}
+@keyframes skylcn-scene-drift {
+  0% {
+    opacity: 0;
+    transform: translate(0, 5px);
+  }
+  25%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(7px, -12px);
+  }
+}
+@keyframes skylcn-scene-bob {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes skylcn-scene-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes skylcn-scene-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+@keyframes skylcn-scene-wob {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+}
+@keyframes skylcn-scene-drip {
+  0% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@keyframes skylcn-scene-jiggle {
+  0%,
+  48%,
+  62%,
+  100% {
+    transform: translateX(0);
+  }
+  51% {
+    transform: translateX(-2px);
+  }
+  54% {
+    transform: translateX(2px);
+  }
+  57% {
+    transform: translateX(-1px);
+  }
+}
+@keyframes skylcn-scene-sig {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.15;
+  }
+}
+@keyframes skylcn-scene-type {
+  0%,
+  12% {
+    opacity: 0;
+  }
+  13%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-fly {
+  0%,
+  30% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  85% {
+    transform: translate(14px, -26px) rotate(18deg);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-slide {
+  0% {
+    transform: translateX(-58px);
+  }
+  45%,
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes skylcn-scene-fall {
+  0%,
+  25% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(10px, 70px) rotate(10deg);
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-snip {
+  0%,
+  18%,
+  30%,
+  100% {
+    transform: scaleX(1);
+  }
+  24% {
+    transform: scaleX(0.55);
+  }
+}
+@keyframes skylcn-scene-c1 {
+  0%,
+  8%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  9%,
+  96% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-c2 {
+  0%,
+  14%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  15%,
+  96% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-c3 {
+  0%,
+  20%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  21%,
+  96% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-c4 {
+  0%,
+  26%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  27%,
+  96% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-c5 {
+  0%,
+  32%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  33%,
+  96% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-deny {
+  0%,
+  49%,
+  97%,
+  100% {
+    opacity: 0;
+  }
+  50%,
+  96% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-wave {
+  0%,
+  100% {
+    transform: scaleX(1) skewY(0);
+  }
+  50% {
+    transform: scaleX(0.86) skewY(4deg);
+  }
+}
+@keyframes skylcn-scene-key {
+  0%,
+  100% {
+    transform: translateX(66px);
+  }
+  24% {
+    transform: translateX(5px);
+  }
+  31% {
+    transform: translateX(5px) rotate(-14deg);
+  }
+  39% {
+    transform: translateX(5px) rotate(12deg);
+  }
+  47% {
+    transform: translateX(5px) rotate(-9deg);
+  }
+  54%,
+  68% {
+    transform: translateX(5px) rotate(0);
+  }
+}
+@keyframes skylcn-scene-key-deny {
+  0%,
+  48%,
+  64%,
+  100% {
+    opacity: 0;
+  }
+  52%,
+  60% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-num {
+  0%,
+  58% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-num-before {
+  0%,
+  58% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-shot {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateX(42px);
+    opacity: 1;
+  }
+  78%,
+  100% {
+    transform: translateX(36px);
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-hole {
+  0%,
+  49%,
+  57%,
+  60%,
+  97%,
+  100% {
+    stroke: var(--skylcn-scene-ink);
+  }
+  50%,
+  56%,
+  61%,
+  96% {
+    stroke: var(--skylcn-scene-alert);
+  }
+}
+@keyframes skylcn-scene-ring {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 125.7;
+  }
+}
+@keyframes skylcn-scene-swing {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+@keyframes skylcn-scene-zap {
+  0%,
+  8% {
+    opacity: 1;
+  }
+  9%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-pause {
+  60% {
+    opacity: 0.2;
+  }
+}
+@keyframes skylcn-scene-shackle {
+  0%,
+  10% {
+    transform: translateY(-6px);
+  }
+  26%,
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes skylcn-scene-format {
+  0% {
+    transform: scaleX(0.05);
+  }
+  85%,
+  100% {
+    transform: scaleX(0.37);
+  }
+}
+@keyframes skylcn-scene-toggle-on {
+  0%,
+  54%,
+  93%,
+  100% {
+    opacity: 0;
+  }
+  55%,
+  92% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-toggle-knob {
+  0%,
+  50%,
+  97%,
+  100% {
+    transform: translateX(0);
+  }
+  56%,
+  92% {
+    transform: translateX(17px);
+  }
+}
+@keyframes skylcn-scene-toggle-cursor {
+  0%,
+  10%,
+  100% {
+    transform: translate(0, 22px);
+  }
+  45%,
+  92% {
+    transform: translate(-8px, -6px);
+  }
+}
+@keyframes skylcn-scene-flip-before {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes skylcn-scene-flip-after {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-stamp {
+  0%,
+  10% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  22%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes skylcn-scene-drop {
+  0% {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  32% {
+    transform: translateY(-3px);
+  }
+  38%,
+  100% {
+    transform: translateY(0);
+  }
+}

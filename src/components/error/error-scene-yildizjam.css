@@ -1,0 +1,11 @@
+/*
+ * The error scenes on YıldızJam's page: their shapes are filled with the page's ground so
+ * the lines behind them stay hidden, and the highlight is the site's lilac.
+ */
+.yildizjam-error {
+  --skylcn-scene-backdrop: var(--color-bg-base);
+}
+
+.yildizjam-error .skylcn-scene {
+  --skylcn-scene-brand: var(--color-brand-glow);
+}
