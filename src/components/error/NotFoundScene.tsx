@@ -1,11 +1,7 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import notFound from "@/error-scenes/notFound.json";
 import { ScenePage, type SceneData } from "./ScenePage";
 
-// The button goes home; the site's other buttons are <button>s too (Button).
+// The button is a link home (the site's Button drawn as a Next Link).
 export function NotFoundScene() {
-  const router = useRouter();
-  return <ScenePage scene={notFound as SceneData} action={() => router.push("/")} />;
+  return <ScenePage scene={notFound as SceneData} href="/" />;
 }

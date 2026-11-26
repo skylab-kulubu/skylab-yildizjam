@@ -28,8 +28,8 @@ function useSceneVariant(scene: SceneData): string | undefined {
 }
 
 // A whole-page error: the scene (inline SVG, decoration only) above its words and one
-// button, which goes home (404) or tries again (error boundary).
-export function ScenePage({ scene, action }: { scene: SceneData; action: () => void }) {
+// button, a link with `href` (404) or a button with `action` (error boundary).
+export function ScenePage({ scene, href, action }: { scene: SceneData; href?: string; action?: () => void }) {
   const picked = useSceneVariant(scene);
   const shown = picked && picked in scene.svg ? picked : scene.random[0];
   const words = scene.text.tr[shown];
@@ -46,7 +46,7 @@ export function ScenePage({ scene, action }: { scene: SceneData; action: () => v
           <h1 className="font-display text-3xl font-bold">{words.title}</h1>
           <p className="text-base leading-relaxed text-white/70">{words.description}</p>
         </div>
-        <Button onClick={action} className="sm:w-auto">
+        <Button href={href} onClick={action} className="sm:w-auto">
           <span className="font-display text-[12px] font-bold tracking-[0.2em] text-brand-glow uppercase">{words.action}</span>
         </Button>
       </div>

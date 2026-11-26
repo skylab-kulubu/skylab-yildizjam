@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { forwardRef } from "react";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -7,6 +8,8 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   pixelSize?: number;
   cornerColor?: string;
   glowColor?: string;
+  /** Draws the same button as a link (Next Link) to this address, for a button that navigates. */
+  href?: string;
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -17,6 +20,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       pixelSize = 2,
       cornerColor = "var(--color-brand-glow)",
       glowColor = "var(--color-brand-glow)",
+      href,
       style,
       ...props
     },
@@ -43,13 +47,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       "bottom-0 right-0 scale-x-[-1] scale-y-[-1]",
     ];
 
-    return (
-      <button
-        ref={ref}
-        className={`group relative inline-flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 select-none w-full sm:w-auto ${className}`}
-        style={style}
-        {...props}
-      >
+    const look = `group relative inline-flex items-center justify-center cursor-pointer transition-all duration-300 active:scale-95 select-none w-full sm:w-auto ${className}`;
+
+    const content = (
+      <>
         <div
           className="absolute inset-0 z-0 transition-all duration-500"
           style={{
@@ -141,6 +142,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <div className="relative z-40 py-3 px-4 sm:py-4 sm:px-10 flex items-center justify-center gap-2 sm:gap-4 text-white">
           {children}
         </div>
+      </>
+    );
+
+    if (href) {
+      return (
+        <Link href={href} className={look} style={style}>
+          {content}
+        </Link>
+      );
+    }
+
+    return (
+      <button ref={ref} className={look} style={style} {...props}>
+        {content}
       </button>
     );
   },
