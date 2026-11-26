@@ -1,0 +1,443 @@
+{
+  "notFound": {
+    "variants": [
+      "A",
+      "B",
+      "C"
+    ],
+    "random": [
+      "A",
+      "B",
+      "C"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "404",
+          "title": "Bu sayfa yok",
+          "description": "GECEKODU'nda sabaha karşı yazılmış, sonra kaybolmuş; adresi bir kontrol et.",
+          "action": "Ana sayfaya dön"
+        },
+        "B": {
+          "code": "404",
+          "title": "Sayfa bulunamadı",
+          "description": "Ya adres yanlış ya da sayfayı biz taşıyıp kimseye haber vermedik; ana sayfadan devam et.",
+          "action": "Ana sayfaya dön"
+        },
+        "C": {
+          "code": "404",
+          "title": "Böyle bir adres yok",
+          "description": "Bağlantı kopyalanırken sonu kesilmiş olabilir; gönderenden yeniden iste.",
+          "action": "Ana sayfaya dön"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "404",
+          "title": "This page is gone",
+          "description": "It was written at GECEKODU in the small hours and then went missing; check the address.",
+          "action": "Back to home"
+        },
+        "B": {
+          "code": "404",
+          "title": "Page not found",
+          "description": "Either the address is wrong or we moved the page without telling anyone; carry on from the home page.",
+          "action": "Back to home"
+        },
+        "C": {
+          "code": "404",
+          "title": "No such address",
+          "description": "The end of the link may have been cut off when it was copied; ask the sender for it again.",
+          "action": "Back to home"
+        }
+      }
+    }
+  },
+  "error": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A",
+      "B"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "500",
+          "title": "Sunucumuz molada",
+          "description": "Sunucumuz kendini GECEKODU'nun gece yarısı yemek molasında sandı; birazdan yeniden dene.",
+          "action": "Yeniden dene"
+        },
+        "B": {
+          "code": "500",
+          "title": "Bir şey bozuldu",
+          "description": "Bir şey bozuldu ve bozan sen değilsin; birazdan yeniden dene.",
+          "action": "Yeniden dene"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "500",
+          "title": "Our server is on a break",
+          "description": "Our server thought it was GECEKODU's midnight food break; try again in a moment.",
+          "action": "Try again"
+        },
+        "B": {
+          "code": "500",
+          "title": "Something broke",
+          "description": "Something broke, and you were not the one who broke it; try again in a moment.",
+          "action": "Try again"
+        }
+      }
+    }
+  },
+  "forbidden": {
+    "variants": [
+      "A",
+      "B",
+      "C"
+    ],
+    "random": [
+      "A",
+      "B",
+      "C"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "403",
+          "title": "Bu sayfa sana kapalı",
+          "description": "Bu sayfa CTF sorusu değil, uğraşarak açılmaz; yetkiyi ekip liderinden iste.",
+          "action": "Ana sayfaya dön"
+        },
+        "B": {
+          "code": "403",
+          "title": "Yetkin yok",
+          "description": "Bu sayfayı açma yetkisini ekip liderin verir; ona yaz.",
+          "action": "Ana sayfaya dön"
+        },
+        "C": {
+          "code": "403",
+          "title": "Anahtarın uymuyor",
+          "description": "Hesabın bu sayfayı açamıyor; yetkiyi ekip liderinden iste.",
+          "action": "Ana sayfaya dön"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "403",
+          "title": "This page is closed to you",
+          "description": "This page is not a CTF challenge and will not open with effort; ask your team lead for access.",
+          "action": "Back to home"
+        },
+        "B": {
+          "code": "403",
+          "title": "No access",
+          "description": "Your team lead gives access to this page; write to them.",
+          "action": "Back to home"
+        },
+        "C": {
+          "code": "403",
+          "title": "Your key does not fit",
+          "description": "Your account cannot open this page; ask your team lead for access.",
+          "action": "Back to home"
+        }
+      }
+    }
+  },
+  "offline": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A",
+      "B"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "ÇEVRİMDIŞI",
+          "title": "İnternet yok",
+          "description": "Bağlantın kopmuş; gelince kaldığın yerden devam et.",
+          "action": "Devam et"
+        },
+        "B": {
+          "code": "ÇEVRİMDIŞI",
+          "title": "Bağlantı koptu",
+          "description": "Bu sefer sorun bizim sunucuda değil, senin internetinde; bağlanınca yeniden dene.",
+          "action": "Yeniden dene"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "OFFLINE",
+          "title": "No internet",
+          "description": "Your connection dropped; carry on where you left off once it is back.",
+          "action": "Continue"
+        },
+        "B": {
+          "code": "OFFLINE",
+          "title": "Connection lost",
+          "description": "This time the trouble is not our server but your internet; try again once you are connected.",
+          "action": "Try again"
+        }
+      }
+    }
+  },
+  "sessionExpired": {
+    "variants": [
+      "A",
+      "B",
+      "C"
+    ],
+    "random": [
+      "A",
+      "B",
+      "C"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "OTURUM",
+          "title": "Oturumun kapandı",
+          "description": "GECEKODU'nda açık bırakılan bilgisayarın ekranı ters döner, biz yalnızca oturumunu kapattık; yeniden giriş yap.",
+          "action": "Yeniden giriş yap"
+        },
+        "B": {
+          "code": "OTURUM",
+          "title": "Oturumun süresi doldu",
+          "description": "Oturumlar bir süre sonra kendiliğinden kapanır; yeniden giriş yap.",
+          "action": "Yeniden giriş yap"
+        },
+        "C": {
+          "code": "OTURUM",
+          "title": "Uzun süre ayrı kaldın",
+          "description": "Bilgisayarını açık bıraktın, biz de USB takmak yerine oturumunu kapattık; yeniden giriş yap.",
+          "action": "Yeniden giriş yap"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "SESSION",
+          "title": "Your session closed",
+          "description": "At GECEKODU a laptop left unlocked gets its screen turned upside down; we only closed your session, so sign in again.",
+          "action": "Sign in again"
+        },
+        "B": {
+          "code": "SESSION",
+          "title": "Your session expired",
+          "description": "Sessions close by themselves after a while; sign in again.",
+          "action": "Sign in again"
+        },
+        "C": {
+          "code": "SESSION",
+          "title": "You were away a while",
+          "description": "You left your computer open, and instead of plugging in a USB stick we closed your session; sign in again.",
+          "action": "Sign in again"
+        }
+      }
+    }
+  },
+  "unavailable": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "503",
+          "title": "Sunucumuz yerinde yok",
+          "description": "Sunucumuz çay almaya kalktı, daha dönmedi; birkaç dakika sonra yeniden dene.",
+          "action": "Yeniden dene"
+        },
+        "B": {
+          "code": "504",
+          "title": "Süre sınırı aşıldı",
+          "description": "Sunucumuz cevabı süresinde yetiştiremedi; birkaç dakika sonra yeniden dene.",
+          "action": "Yeniden dene"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "503",
+          "title": "Our server is not at its desk",
+          "description": "Our server got up to fetch tea and has not come back; try again in a few minutes.",
+          "action": "Try again"
+        },
+        "B": {
+          "code": "504",
+          "title": "Time limit exceeded",
+          "description": "Our server could not answer in time; try again in a few minutes.",
+          "action": "Try again"
+        }
+      }
+    }
+  },
+  "linkExpired": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A",
+      "B"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "410",
+          "title": "Bu bağlantının süresi doldu",
+          "description": "Bu bağlantı bir süreliğine geçerliydi ve o süre bitti; işlemi baştan başlatıp yenisini al.",
+          "action": "Baştan başlat"
+        },
+        "B": {
+          "code": "410",
+          "title": "Bağlantı eskimiş",
+          "description": "Bu bağlantı fazla beklemiş, artık geçerli değil; işlemi baştan başlat, yenisi gelsin.",
+          "action": "Baştan başlat"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "410",
+          "title": "This link has expired",
+          "description": "This link was valid for a while and that time is over; start again to get a new one.",
+          "action": "Start again"
+        },
+        "B": {
+          "code": "410",
+          "title": "This link is stale",
+          "description": "This link waited too long and is no longer valid; start again and a new one will come.",
+          "action": "Start again"
+        }
+      }
+    }
+  },
+  "tooManyRequests": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A",
+      "B"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "429",
+          "title": "Biraz yavaşla",
+          "description": "Arka arkaya o kadar denedin ki sunucumuz seni saldırı sandı; bir dakika bekleyip yeniden dene.",
+          "action": "Yeniden dene"
+        },
+        "B": {
+          "code": "429",
+          "title": "Bir dakika bekle",
+          "description": "Çok hızlı gittin, sunucumuz araya bir dakika koydu; süre dolunca yeniden dene.",
+          "action": "Yeniden dene"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "429",
+          "title": "Slow down a little",
+          "description": "You tried so many times in a row that our server took you for an attack; wait a minute and try again.",
+          "action": "Try again"
+        },
+        "B": {
+          "code": "429",
+          "title": "Wait a minute",
+          "description": "You went too fast, so our server put a minute in between; try again when it is up.",
+          "action": "Try again"
+        }
+      }
+    }
+  },
+  "cookiesBlocked": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A",
+      "B"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "ÇEREZ",
+          "title": "Ortada çerez yok",
+          "description": "Tarayıcın çerezleri kapatmış, giriş çerezsiz olmuyor; izin verip yeniden dene.",
+          "action": "Yeniden dene"
+        },
+        "B": {
+          "code": "ÇEREZ",
+          "title": "Çerezler kapalı",
+          "description": "Girişi hatırlamak için çerez kullanıyoruz ve tarayıcın izin vermiyor; ayarlardan açıp yeniden dene.",
+          "action": "Yeniden dene"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "COOKIES",
+          "title": "No cookies on the table",
+          "description": "Your browser has turned cookies off, and signing in does not work without them; allow them and try again.",
+          "action": "Try again"
+        },
+        "B": {
+          "code": "COOKIES",
+          "title": "Cookies are off",
+          "description": "We use a cookie to remember your sign-in and your browser does not allow it; turn it on in the settings and try again.",
+          "action": "Try again"
+        }
+      }
+    }
+  },
+  "formClosed": {
+    "variants": [
+      "A",
+      "B"
+    ],
+    "random": [
+      "A",
+      "B"
+    ],
+    "text": {
+      "tr": {
+        "A": {
+          "code": "KAPALI",
+          "title": "Bu form kapandı",
+          "description": "Bu form artık yanıt almıyor; bir yanlışlık varsa formu paylaşan ekibe yaz.",
+          "action": "Ana sayfaya dön"
+        },
+        "B": {
+          "code": "KAPALI",
+          "title": "Form kapanmış",
+          "description": "Son dakikaya bıraktıysan geç kaldın; yine de formu paylaşan ekibe yazmayı dene.",
+          "action": "Ana sayfaya dön"
+        }
+      },
+      "en": {
+        "A": {
+          "code": "CLOSED",
+          "title": "This form is closed",
+          "description": "This form no longer takes answers; if that is a mistake, write to the team that shared it.",
+          "action": "Back to home"
+        },
+        "B": {
+          "code": "CLOSED",
+          "title": "The form has closed",
+          "description": "If you left it to the last minute you are too late; still, try writing to the team that shared it.",
+          "action": "Back to home"
+        }
+      }
+    }
+  }
+}

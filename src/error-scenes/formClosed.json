@@ -1,0 +1,45 @@
+{
+  "kind": "formClosed",
+  "variants": [
+    "A",
+    "B"
+  ],
+  "random": [
+    "A",
+    "B"
+  ],
+  "text": {
+    "tr": {
+      "A": {
+        "code": "KAPALI",
+        "title": "Bu form kapandı",
+        "description": "Bu form artık yanıt almıyor; bir yanlışlık varsa formu paylaşan ekibe yaz.",
+        "action": "Ana sayfaya dön"
+      },
+      "B": {
+        "code": "KAPALI",
+        "title": "Form kapanmış",
+        "description": "Son dakikaya bıraktıysan geç kaldın; yine de formu paylaşan ekibe yazmayı dene.",
+        "action": "Ana sayfaya dön"
+      }
+    },
+    "en": {
+      "A": {
+        "code": "CLOSED",
+        "title": "This form is closed",
+        "description": "This form no longer takes answers; if that is a mistake, write to the team that shared it.",
+        "action": "Back to home"
+      },
+      "B": {
+        "code": "CLOSED",
+        "title": "The form has closed",
+        "description": "If you left it to the last minute you are too late; still, try writing to the team that shared it.",
+        "action": "Back to home"
+      }
+    }
+  },
+  "svg": {
+    "A": "<svg xmlns=\"http://www.w3.org/2000/svg\" data-slot=\"error-scene\" data-kind=\"formClosed\" data-variant=\"A\" viewBox=\"0 0 240 180\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"skylcn-scene block aspect-[4/3] h-auto w-full max-w-72\"><path d=\"M10 152H230\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><rect x=\"18\" y=\"20\" width=\"80\" height=\"132\" rx=\"4\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><text x=\"26\" y=\"32\" font-size=\"4.8\" fill=\"var(--skylcn-scene-faint, #525252)\" text-anchor=\"start\" letter-spacing=\".4\" stroke=\"none\">BAŞVURU FORMU</text><path d=\"M26 38H90\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></path><path d=\"M26 48h6v6h-6zM26 64h6v6h-6zM26 80h6v6h-6zM26 96h6v6h-6z\" stroke-width=\"1.25\"></path><path d=\"M38 51H88M38 67H84M38 83H88M38 99H80\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></path><rect x=\"38\" y=\"120\" width=\"40\" height=\"12\" rx=\"3\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></rect><g class=\"skylcn-scene-stamp\"><g transform=\"rotate(-14 58 82)\"><rect x=\"24\" y=\"72\" width=\"68\" height=\"20\" rx=\"3\" fill-opacity=\".85\" stroke=\"var(--skylcn-scene-alert, #f87171)\" stroke-width=\"1.6\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><text x=\"58\" y=\"86\" font-size=\"9\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"middle\" font-weight=\"700\" letter-spacing=\"1\" stroke=\"none\">KAPANDI</text></g></g><text x=\"126\" y=\"48\" font-size=\"5\" fill=\"var(--skylcn-scene-faint, #525252)\" text-anchor=\"start\" stroke=\"none\">yanıt: 0 yeni</text><rect x=\"118\" y=\"54\" width=\"48\" height=\"30\" rx=\"3\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M126 64H158\" stroke-width=\"1.25\"></path><path stroke=\"var(--skylcn-scene-alert, #f87171)\" d=\"M122 58l40 22\" stroke-width=\"1.25\"></path><g class=\"skylcn-scene-drift\"><rect x=\"118\" y=\"108\" width=\"30\" height=\"20\" rx=\"2\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M118 109L133 120L148 109\" stroke-width=\"1.25\"></path></g><path stroke-dasharray=\"2 3\" d=\"M152 118H178\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><path d=\"M175 114l4 4-4 4\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><rect x=\"184\" y=\"98\" width=\"44\" height=\"42\" rx=\"6\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><circle cx=\"206\" cy=\"112\" r=\"6\" stroke-width=\"1.25\"></circle><path d=\"M206 108.6L207.09 110.91L209.4 112L207.09 113.09L206 115.4L204.91 113.09L202.6 112L204.91 110.91Z\" fill=\"var(--skylcn-scene-warm, #fbbf24)\" stroke=\"none\"></path><text x=\"206\" y=\"128\" font-size=\"4.6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"middle\" stroke=\"none\">formu</text><text x=\"206\" y=\"135\" font-size=\"4.6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"middle\" stroke=\"none\">paylaşan</text></svg>\n",
+    "B": "<svg xmlns=\"http://www.w3.org/2000/svg\" data-slot=\"error-scene\" data-kind=\"formClosed\" data-variant=\"B\" viewBox=\"0 0 240 180\" aria-hidden=\"true\" focusable=\"false\" fill=\"none\" stroke=\"var(--skylcn-scene-ink, #e5e5e5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"skylcn-scene block aspect-[4/3] h-auto w-full max-w-72\"><path d=\"M10 152H230\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><rect x=\"16\" y=\"22\" width=\"88\" height=\"40\" rx=\"5\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M16 42H104\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></path><text x=\"60\" y=\"16\" font-size=\"5\" fill=\"var(--skylcn-scene-faint, #525252)\" text-anchor=\"middle\" letter-spacing=\".8\" stroke=\"none\">SON GÜN</text><g class=\"skylcn-scene-flip-before\" opacity=\"0\"><text x=\"60\" y=\"50\" font-size=\"20\" fill=\"var(--skylcn-scene-ink, #e5e5e5)\" text-anchor=\"middle\" font-weight=\"700\" stroke=\"none\">23:59</text></g><g class=\"skylcn-scene-flip-after\"><text x=\"60\" y=\"50\" font-size=\"20\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"middle\" font-weight=\"700\" stroke=\"none\">00:00</text></g><rect x=\"26\" y=\"74\" width=\"64\" height=\"78\" rx=\"4\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M34 86h5v5h-5zM34 100h5v5h-5zM34 114h5v5h-5z\" stroke-width=\"1.25\"></path><path d=\"M44 88.5H82M44 102.5H78M44 116.5H82\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-faint, #525252)\"></path><g class=\"skylcn-scene-stamp\"><g transform=\"rotate(-12 58 128)\"><rect x=\"30\" y=\"120\" width=\"56\" height=\"16\" rx=\"3\" fill-opacity=\".85\" stroke=\"var(--skylcn-scene-alert, #f87171)\" stroke-width=\"1.5\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><text x=\"58\" y=\"131.5\" font-size=\"7.4\" fill=\"var(--skylcn-scene-alert, #f87171)\" text-anchor=\"middle\" font-weight=\"700\" stroke=\"none\">KAPANDI</text></g></g><text x=\"132\" y=\"72\" font-size=\"5.6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"start\" stroke=\"none\">yine de</text><text x=\"132\" y=\"81\" font-size=\"5.6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"start\" stroke=\"none\">ekibe yaz</text><g class=\"skylcn-scene-drift\"><rect x=\"130\" y=\"92\" width=\"40\" height=\"26\" rx=\"2\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><path d=\"M130 93L150 107.6L170 93\" stroke-width=\"1.25\"></path></g><path stroke-dasharray=\"2 3\" d=\"M176 105H196\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><path d=\"M193 101l4 4-4 4\" stroke-width=\"1.25\" stroke=\"var(--skylcn-scene-soft, #8c8c8c)\"></path><rect x=\"198\" y=\"88\" width=\"30\" height=\"34\" rx=\"5\" fill=\"var(--skylcn-scene-surface, #171717)\"></rect><circle cx=\"213\" cy=\"100\" r=\"5\" stroke-width=\"1.25\"></circle><path d=\"M213 97L213.96 99.04L216 100L213.96 100.96L213 103L212.04 100.96L210 100L212.04 99.04Z\" fill=\"var(--skylcn-scene-warm, #fbbf24)\" stroke=\"none\"></path><text x=\"213\" y=\"115\" font-size=\"4.6\" fill=\"var(--skylcn-scene-soft, #8c8c8c)\" text-anchor=\"middle\" stroke=\"none\">ekip</text></svg>\n"
+  }
+}
